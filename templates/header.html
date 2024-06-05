@@ -35,10 +35,14 @@
 
 
                                                  <li>
-                                                    <a href="cart.html">Корзина</a>
+                                                    <a href="{% url 'cart' %}">Корзина</a>
                                                 </li>
                                                 <li>
-                                                    <a href="my-account.html">Мой аккаунт</a>
+                                                  {% if user.is_authenticated %}
+                                                     <a href="{% url 'profile' %}">Мой аккаунт</a>
+                                                  {% else %}
+
+                                                  {% endif %}
                                                 </li>
                                                 <li>
                                                     <a href="{% url 'login-register' %}">Авторизация / Регистрация</a>

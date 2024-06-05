@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from games.views import HomeTemplate, ShopTemplate, AboutTemplate, ContactTemplate, LoginTemplate, CartTemplate
+from games.views import HomeTemplate, ShopTemplate, AboutTemplate, ContactTemplate, LoginTemplate, CartTemplate, WishlistTemplate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,7 +13,8 @@ urlpatterns = [
     path('contact/', ContactTemplate.as_view(), name='contact'),
     path('login/', LoginTemplate.as_view(), name='login'),
     path('cart/', CartTemplate.as_view(), name='cart'),
-    path('user/', include('users.urls'))
+    path('wishlist/', WishlistTemplate.as_view(), name='wishlist'),
+    path('user/', include('users.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

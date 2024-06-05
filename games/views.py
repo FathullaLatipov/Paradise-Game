@@ -71,3 +71,7 @@ class LoginTemplate(TemplateView):
 
 class CartTemplate(TemplateView):
     template_name = 'cart.html'
+
+
+class WishlistTemplate(TemplateView):
+    template_name = 'wishlist.html'
