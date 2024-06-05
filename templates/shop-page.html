@@ -1,6 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load mytags %}
 {% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+<style>
+    .irs--flat .irs-bar {
+        background-color: #7e4c4f !important;
+    }
+
+    .irs--flat .irs-handle>i:first-child {
+         background-color: #7e4c4f !important;
+    }
+
+    .irs--flat .irs-from, .irs--flat .irs-to, .irs--flat .irs-single {
+         background-color: #7e4c4f !important;
+    }
+
+    .irs--flat .irs-from:before, .irs--flat .irs-to:before, .irs--flat .irs-single:before {
+        border-top-color: #7e4c4f !important;
+    }
+</style>
+
         <div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url({% static 'img/banner/banner.jpg' %});">
             <div class="container">
                 
@@ -13,12 +33,7 @@
                         <div class="shop-topbar-wrapper">
                             <div class="product-sorting-wrapper">
                                 <div class="product-show shorting-style">
-                                    <label>Отображается <span>1-20</span> Из <span>100</span> Результаты</label>
-                                    <select>
-                                        <option value="">9</option>
-                                        <option value="">18</option>
-                                        <option value="">27</option>
-                                    </select>
+                                    <label>Отображается <span>{{ page_obj.start_index }}-{{ page_obj.end_index }}</span> Из <span>{{ page_obj.paginator.count }}</span> Результаты</label>
                                 </div>
                             </div>
                             <div class="grid-list-options">
@@ -31,430 +46,88 @@
                         <div class="grid-list-product-wrapper">
                             <div class="product-view product-grid">
                                 <div class="row">
-                                    <div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">
-                                        <div class="product-wrapper mb-10">
-                                            <div class="product-img">
-                                                <a href="product-details.html">
-                                                    <img src="{% static 'img/product/sk.jpg' %}" alt="">
-                                                </a>
-                                                <div class="product-action">
-                                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                                        <i class="ti-plus"></i>
+                                    {% for game in games %}
+                                        <div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">
+                                            <div class="product-wrapper mb-10">
+                                                <div class="product-img">
+                                                    <a href="product-details.html">
+                                                        <img src="{{ game.image.url }}" alt="">
                                                     </a>
-                                                    <a title="Add To Cart" href="#">
-                                                        <i class="ti-shopping-cart"></i>
-                                                    </a>
+                                                    <div class="product-action">
+                                                        <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" class="quick-view" data-id="{{ game.id }}" data-title="{{ game.title }}" data-image="{{ game.image.url }}" data-sale-price="{{ game.sale_price }}" data-price="{{ game.price }}" data-description="{{ game.description }}">
+                                                            <i class="ti-plus"></i>
+                                                        </a>
+                                                        <a title="Add To Cart" href="#">
+                                                            <i class="ti-shopping-cart"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-action-wishlist">
+                                                        <a title="Wishlist" href="#">
+                                                            <i class="ti-heart"></i>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                                <div class="product-action-wishlist">
-                                                    <a title="Wishlist" href="#">
-                                                        <i class="ti-heart"></i>
-                                                    </a>
+                                                <div class="product-content" data-price="19" >
+                                                    <h4><a href="product-details.html">{{ game.title }}</a></h4>
+                                                    <div class="product-price">
+                                                        {% if game.sale_price %}
+                                                        <span class="new"> {{ game.sale_price }}₽ </span>
+                                                        <span class="old"> {{ game.price }}₽ </span>
+                                                        {% else %}
+                                                        <span class="old" style="text-decoration: none"> {{ game.price }}₽ </span>
+                                                        {% endif %}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="product-content" data-price="19" >
-                                                <h4><a href="product-details.html">The Elder Scrolls 5: Skyrim</a></h4>
+                                                  <div class="product-list-content" data-price="200">
+                                                <h4><a href="#">{{ game.title }}</a></h4>
                                                 <div class="product-price">
-                                                    <span class="new">19.00₽ </span>
-                                                    <span class="old">50.00₽</span>
+                                                     {% if game.sale_price %}
+                                                        <span class="new"> {{ game.sale_price }}₽ </span>
+                                                        <span class="old"> {{ game.price }}₽ </span>
+                                                        {% else %}
+                                                        <span class="old" style="text-decoration: none"> {{ game.price }}₽ </span>
+                                                        {% endif %}
                                                 </div>
-                                            </div>
-                                            <div class="product-list-content" data-price="19" >
-                                                <h4><a href="#">The Elder Scrolls 5: Skyrim</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">19.00₽ </span>
-                                                </div>
-                                                <p>Lorem ipsum dolor sit amet, consect adipis elit, sed do eiusmod tempor incididu ut labore et dolore magna aliqua. Ut enim ad quis nostrud exerci ullamco laboris nisi ut aliquip ex ea commodo consequat, Duis aute irure dolor.</p>
+                                                <p>{{ game.description }}</p>
                                                 <div class="product-list-action">
                                                     <div class="product-list-action-left">
                                                         <a class="addtocart-btn" title="Add to cart" href="#"><i class="ion-bag"></i> Add to cart</a>
                                                     </div>
                                                     <div class="product-list-action-right">
                                                         <a title="Wishlist" href="#"><i class="ti-heart"></i></a>
-                                                        <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#"><i class="ti-plus"></i></a>
+                                                        <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" class="quick-view" data-id="{{ game.id }}" data-title="{{ game.title }}" data-image="{{ game.image.url }}" data-sale-price="{{ game.sale_price }}" data-price="{{ game.price }}" data-description="{{ game.description }}">
+                                                            <i class="ti-plus"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
+                                            </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">
-                                        <div class="product-wrapper mb-10">
-                                            <div class="product-img">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/SanAndreas.jpg" alt="">
-                                                </a>
-                                                <div class="product-action">
-                                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                    <a title="Add To Cart" href="#">
-                                                        <i class="ti-shopping-cart"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-wishlist">
-                                                    <a title="Wishlist" href="#">
-                                                        <i class="ti-heart"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-content" data-price="200">
-                                                <h4><a href="product-details.html">Grand Theft Auto: San Andreas</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">200.00₽ </span>
-                                                </div>
-                                            </div>
-                                            <div class="product-list-content" data-price="200">
-                                                <h4><a href="#">Grand Theft Auto: San Andreas</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">200.00₽ </span>
-                                                    <span class="old">500.00₽</span>
-                                                </div>
-                                                <p>Lorem ipsum dolor sit amet, consect adipis elit, sed do eiusmod tempor incididu ut labore et dolore magna aliqua. Ut enim ad quis nostrud exerci ullamco laboris nisi ut aliquip ex ea commodo consequat, Duis aute irure dolor.</p>
-                                                <div class="product-list-action">
-                                                    <div class="product-list-action-left">
-                                                        <a class="addtocart-btn" title="Add to cart" href="#"><i class="ion-bag"></i> Add to cart</a>
-                                                    </div>
-                                                    <div class="product-list-action-right">
-                                                        <a title="Wishlist" href="#"><i class="ti-heart"></i></a>
-                                                        <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#"><i class="ti-plus"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">
-                                        <div class="product-wrapper mb-10">
-                                            <div class="product-img">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/fc3.jpg" alt="">
-                                                </a>
-                                                <div class="product-action">
-                                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                    <a title="Add To Cart" href="#">
-                                                        <i class="ti-shopping-cart"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-wishlist">
-                                                    <a title="Wishlist" href="#">
-                                                        <i class="ti-heart"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-content" data-price="50">
-                                                <h4><a href="product-details.html">Far Cry 3</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">50.00₽ </span>
-                                                    <span class="old">70.00₽</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-list-content" data-price="50">
-                                                <h4><a href="#">Far Cry 3 </h4>
-                                                <div class="product-price">
-                                                    <span class="new">50.00₽ </span>
-                                                </div>
-                                                <p>Lorem ipsum dolor sit amet, consect adipis elit, sed do eiusmod tempor incididu ut labore et dolore magna aliqua. Ut enim ad quis nostrud exerci ullamco laboris nisi ut aliquip ex ea commodo consequat, Duis aute irure dolor.</p>
-                                                <div class="product-list-action">
-                                                    <div class="product-list-action-left">
-                                                        <a class="addtocart-btn" title="Add to cart" href="#"><i class="ion-bag"></i> Добавить в корзину</a>
-                                                    </div>
-                                                    <div class="product-list-action-right">
-                                                        <a title="Wishlist" href="#"><i class="ti-heart"></i></a>
-                                                        <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#"><i class="ti-plus"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">
-                                        <div class="product-wrapper mb-10">
-                                            <div class="product-img">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/GrandAuto4.jpg" alt="">
-                                                </a>
-                                                <div class="product-action">
-                                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                    <a title="Add To Cart" href="#">
-                                                        <i class="ti-shopping-cart"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-wishlist">
-                                                    <a title="Wishlist" href="#">
-                                                        <i class="ti-heart"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-content" data-price="500">
-                                                <h4><a href="product-details.html">Grand Theft Auto 4</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">500.00₽ </span>
-                                                </div>
-                                            </div>
-                                            <div class="product-list-content" data-price="500">
-                                                <h4><a href="#">Grand Theft Auto 4</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">500.00₽ </span>
-                                                    <span class="old">600.00₽</span>
-                                                </div>
-                                                <p>Lorem ipsum dolor sit amet, consect adipis elit, sed do eiusmod tempor incididu ut labore et dolore magna aliqua. Ut enim ad quis nostrud exerci ullamco laboris nisi ut aliquip ex ea commodo consequat, Duis aute irure dolor.</p>
-                                                <div class="product-list-action">
-                                                    <div class="product-list-action-left">
-                                                        <a class="addtocart-btn" title="Add to cart" href="#"><i class="ion-bag"></i> Add to cart</a>
-                                                    </div>
-                                                    <div class="product-list-action-right">
-                                                        <a title="Wishlist" href="#"><i class="ti-heart"></i></a>
-                                                        <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#"><i class="ti-plus"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">
-                                        <div class="product-wrapper mb-10">
-                                            <div class="product-img">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/AC2.jpg" alt="">
-                                                </a>
-                                                <div class="product-action">
-                                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                    <a title="Add To Cart" href="#">
-                                                        <i class="ti-shopping-cart"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-wishlist">
-                                                    <a title="Wishlist" href="#">
-                                                        <i class="ti-heart"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-content" data-price="70">
-                                                <h4><a href="product-details.html">Assassin's Creed 2</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">70.00₽ </span>
-                                                    <span class="old">90.00₽</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-list-content" data-price="70">
-                                                <h4><a href="#">Assassin's Creed 2</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">70.00₽ </span>
-                                                </div>
-                                                <p>Lorem ipsum dolor sit amet, consect adipis elit, sed do eiusmod tempor incididu ut labore et dolore magna aliqua. Ut enim ad quis nostrud exerci ullamco laboris nisi ut aliquip ex ea commodo consequat, Duis aute irure dolor.</p>
-                                                <div class="product-list-action">
-                                                    <div class="product-list-action-left">
-                                                        <a class="addtocart-btn" title="Add to cart" href="#"><i class="ion-bag"></i> Add to cart</a>
-                                                    </div>
-                                                    <div class="product-list-action-right">
-                                                        <a title="Wishlist" href="#"><i class="ti-heart"></i></a>
-                                                        <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#"><i class="ti-plus"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">
-                                        <div class="product-wrapper mb-10">
-                                            <div class="product-img">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/MassEffect2.jpg" alt="">
-                                                </a>
-                                                <div class="product-action">
-                                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                    <a title="Add To Cart" href="#">
-                                                        <i class="ti-shopping-cart"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-wishlist">
-                                                    <a title="Wishlist" href="#">
-                                                        <i class="ti-heart"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-content" data-price="400">
-                                                <h4><a href="product-details.html">Mass Effect 2</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">400.00₽ </span>
-                                                </div>
-                                            </div>
-                                            <div class="product-list-content" data-price="400" >
-                                                <h4><a href="#">Mass Effect 2</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">400.00₽ </span>
-                                                    <span class="old">700.00₽</span>
-                                                </div>
-                                                <p>Lorem ipsum dolor sit amet, consect adipis elit, sed do eiusmod tempor incididu ut labore et dolore magna aliqua. Ut enim ad quis nostrud exerci ullamco laboris nisi ut aliquip ex ea commodo consequat, Duis aute irure dolor.</p>
-                                                <div class="product-list-action">
-                                                    <div class="product-list-action-left">
-                                                        <a class="addtocart-btn" title="Add to cart" href="#"><i class="ion-bag"></i> Add to cart</a>
-                                                    </div>
-                                                    <div class="product-list-action-right">
-                                                        <a title="Wishlist" href="#"><i class="ti-heart"></i></a>
-                                                        <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#"><i class="ti-plus"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">
-                                        <div class="product-wrapper mb-10">
-                                            <div class="product-img">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/Mafia2.jpg" alt="">
-                                                </a>
-                                                <div class="product-action">
-                                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                    <a title="Add To Cart" href="#">
-                                                        <i class="ti-shopping-cart"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-wishlist">
-                                                    <a title="Wishlist" href="#">
-                                                        <i class="ti-heart"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-content"  data-price="100">
-                                                <h4><a href="product-details.html">Mafia 2</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">100.00₽ </span>
-                                                    <span class="old">300.00₽</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-list-content" data-price="100">
-                                                <h4><a href="#">Mafia 2</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">100.00₽ </span>
-                                                </div>
-                                                <p>Lorem ipsum dolor sit amet, consect adipis elit, sed do eiusmod tempor incididu ut labore et dolore magna aliqua. Ut enim ad quis nostrud exerci ullamco laboris nisi ut aliquip ex ea commodo consequat, Duis aute irure dolor.</p>
-                                                <div class="product-list-action">
-                                                    <div class="product-list-action-left">
-                                                        <a class="addtocart-btn" title="Add to cart" href="#"><i class="ion-bag"></i> Add to cart</a>
-                                                    </div>
-                                                    <div class="product-list-action-right">
-                                                        <a title="Wishlist" href="#"><i class="ti-heart"></i></a>
-                                                        <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#"><i class="ti-plus"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">
-                                        <div class="product-wrapper mb-10">
-                                            <div class="product-img">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/CallOfDutyMW2.jpg" alt="">
-                                                </a>
-                                                <div class="product-action">
-                                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                    <a title="Add To Cart" href="#">
-                                                        <i class="ti-shopping-cart"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-wishlist">
-                                                    <a title="Wishlist" href="#">
-                                                        <i class="ti-heart"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-content" data-price="22">
-                                                <h4><a href="product-details.html">Call of Duty: Modern Warfare 2</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">22.00₽ </span>
-                                                </div>
-                                            </div>
-                                            <div class="product-list-content" data-price="22">
-                                                <h4><a href="#">Call of Duty: Modern Warfare 2</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">22.00₽ </span>
-                                                    <span class="old">40.00₽</span>
-                                                </div>
-                                                <p>Call of Duty: Modern Warfare II — компьютерная игра в жанре шутера от первого лица, разработанная компанией Infinity Ward, издателем игры выступила Activision. Это сиквел Call of Duty: Modern Warfare 2019 года, а также девятнадцатая часть в серии.</p>
-                                                <div class="product-list-action">
-                                                    <div class="product-list-action-left">
-                                                        <a class="addtocart-btn" title="Add to cart" href="#"><i class="ion-bag"></i> Add to cart</a>
-                                                    </div>
-                                                    <div class="product-list-action-right">
-                                                        <a title="Wishlist" href="#"><i class="ti-heart"></i></a>
-                                                        <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#"><i class="ti-plus"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">
-                                        <div class="product-wrapper mb-10">
-                                            <div class="product-img">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/Fallout3.jpg" alt="">
-                                                </a>
-                                                <div class="product-action">
-                                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                    <a title="Add To Cart" href="#">
-                                                        <i class="ti-shopping-cart"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-wishlist">
-                                                    <a title="Wishlist" href="#">
-                                                        <i class="ti-heart"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-content" data-price="50">
-                                                <h4><a href="product-details.html">Fallout 3</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">50.00₽ </span>
-                                                    <span class="old">70.00₽</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-list-content" data-price="50">
-                                                <h4><a href="#">Fallout 3</a></h4>
-                                                <div class="product-price">
-                                                    <span class="new">50.00₽ </span>
-                                                </div>
-                                                <p>Lorem ipsum dolor sit amet, consect adipis elit, sed do eiusmod tempor incididu ut labore et dolore magna aliqua. Ut enim ad quis nostrud exerci ullamco laboris nisi ut aliquip ex ea commodo consequat, Duis aute irure dolor.</p>
-                                                <div class="product-list-action">
-                                                    <div class="product-list-action-left">
-                                                        <a class="addtocart-btn" title="Add to cart" href="#"><i class="ion-bag"></i> Add to cart</a>
-                                                    </div>
-                                                    <div class="product-list-action-right">
-                                                        <a title="Wishlist" href="#"><i class="ti-heart"></i></a>
-                                                        <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#"><i class="ti-plus"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% empty %}
+                                    <h3>Не нашли то что искали((</h3>
+                                    {% endfor %}
                                 </div>
+
                                 <div class="pagination-style text-center mt-10">
                                     <ul>
                                         <li>
-                                            <a href="#"><i class="icon-arrow-left"></i></a>
+                                            {% if page_obj.has_previous %}
+                                                <a href="?page={{ page_obj.previous_page_number }}"><i class="icon-arrow-left"></i></a>
+                                               {% endif %}
                                         </li>
                                         <li>
-                                            <a href="#">1</a>
+                                            <a href="#" class="active">{{ page_obj.number }}</a>
                                         </li>
                                         <li>
-                                            <a href="#">2</a>
-                                        </li>
-                                        <li>
-                                            <a class="active" href="#"><i class="icon-arrow-right"></i></a>
+                                             {% if page_obj.has_next %}
+                                                <a  href="?page={{ page_obj.next_page_number }}"><i class="icon-arrow-right"></i></a>
+                                             {% endif %}
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="col-lg-3">
                         <div class="shop-sidebar">
@@ -462,7 +135,7 @@
                                 <h4 class="shop-sidebar-title">Поиск игр</h4>
                                 <div class="shop-search mt-25 mb-50">
                                     <form class="shop-search-form">
-                                        <input type="text" placeholder="Найди игру">
+                                        <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Найди игру">
                                         <button type="submit">
                                             <i class="icon-magnifier"></i>
                                         </button>
@@ -472,27 +145,30 @@
                             <div class="shop-widget">
                                 <h4 class="shop-sidebar-title">Сортировать по цене</h4>
                                  <div class="price_filter mt-25">
-                                    <div id="slider-range"></div>
-                                    <div class="price_slider_amount">
-                                        <div class="label-input">
-                                            <label>Цена: </label>
-                                            <input type="text" id="amount" name="price"  placeholder="Выберете цену" readonly/>
-                                            
-                                        </div>
-                                        <button type="button" id="filter-button">Сортировать</button> 
-                                    </div>
+                                    <div id="slider-range" style="display: none"></div>
+                                     <input type="text" class="js-range-slider" style="background-color:white"/>
+<!--                                    <div class="price_slider_amount">-->
+<!--                                        <div class="label-input">-->
+<!--                                            <label>Цена: </label>-->
+<!--                                            <input type="text" id="amount" name="price"  placeholder="Выберете цену" readonly/>-->
+<!--                                            -->
+<!--                                        </div>-->
+<!--                                        <button type="button" id="filter-button">Сортировать</button> -->
+<!--                                    </div>-->
                                 </div>
                             </div>
-                            <div class="shop-widget mt-50">
+<!--                            genre
+game_models
+platform-->
+                            <br>
+                            <a href="{% url 'shop' %}" class="shop-sidebar-title" style="margin-bottom: 0px">Очистить фильтр</a>
+                            <div class="shop-widget mt-25">
                                 <h4 class="shop-sidebar-title">Жанры</h4>
                                  <div class="shop-list-style mt-20">
                                     <ul>
-                                        <li><a href="#">Экшен</a></li>
-                                        <li><a href="#">Стратегии</a></li>
-                                        <li><a href="#">Гонки</a></li>
-                                        <li><a href="#">RPG</a></li>
-                                        <li><a href="#">Спорт</a></li>
-                                        <li><a href="#">Приключения</a></li>
+                                        {% for genre in genres %}
+                                            <li><a {% if request.GET.genre == genre.pk|stringformat:'i' %}style="color: #7e4c4f;padding-left: 5px;"{% endif %} onclick="addUrlParameter('genre', '{{ genre.pk }}')" style="cursor: pointer">{{ genre.title }}</a></li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
@@ -500,9 +176,9 @@
                                 <h4 class="shop-sidebar-title">Режимы игры</h4>
                                  <div class="shop-list-style mt-20">
                                     <ul>
-                                        <li><a href="#">Одиночная игра</a></li>
-                                        <li><a href="#">Кооперативная игра</a></li>
-                                        <li><a href="#">Сетевая игра</a></li>                                     
+                                       {% for game_mode in game_models %}
+                                            <li><a {% if request.GET.game_mode == game_mode.pk|stringformat:'i' %}style="color: #7e4c4f;padding-left: 5px;"{% endif %} onclick="addUrlParameter('game_mode', '{{ game_mode.pk }}')" style="cursor: pointer">{{ game_mode.title }}</a></li>
+                                       {% endfor %}
                                     </ul>
                                 </div>
                             </div>                           
@@ -510,10 +186,9 @@
                                 <h4 class="shop-sidebar-title">Платформы</h4>
                                  <div class="shop-list-style mt-20">
                                     <ul>
-                                        <li><a href="#">Windows</a></li>
-                                        <li><a href="#">Mac</a></li>
-                                        <li><a href="#">Linux</a></li>
-                                        
+                                        {% for platform in platforms %}
+                                            <li><a {% if request.GET.platform == platform.pk|stringformat:'i' %}style="color: #7e4c4f;padding-left: 5px;"{% endif %} onclick="addUrlParameter('platform', '{{ platform.pk }}')" style="cursor: pointer">{{ platform.title }}</a></li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
@@ -522,94 +197,48 @@
                 </div>
             </div>
         </div>
-		<!-- modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span class="ti-close" aria-hidden="true"></span>
-            </button>
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="qwick-view-left">
-                            <div class="quick-view-learg-img">
-                                <div class="quick-view-tab-content tab-content">
-                                    <div class="tab-pane active show fade" id="modal1" role="tabpanel">
-                                        <img src="assets/img/quick-view/l1.jpg" alt="">
-                                    </div>
-                                    <div class="tab-pane fade" id="modal2" role="tabpanel">
-                                        <img src="assets/img/quick-view/l2.jpg" alt="">
-                                    </div>
-                                    <div class="tab-pane fade" id="modal3" role="tabpanel">
-                                        <img src="assets/img/quick-view/l3.jpg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="quick-view-list nav" role="tablist">
-                                <a class="active" href="#modal1" data-toggle="tab" role="tab">
-                                    <img src="assets/img/quick-view/s1.jpg" alt="">
-                                </a>
-                                <a href="#modal2" data-toggle="tab" role="tab">
-                                    <img src="assets/img/quick-view/s2.jpg" alt="">
-                                </a>
-                                <a href="#modal3" data-toggle="tab" role="tab">
-                                    <img src="assets/img/quick-view/s3.jpg" alt="">
-                                </a>
+<!-- modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span class="ti-close" aria-hidden="true"></span>
+    </button>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="qwick-view-left">
+                    <div class="quick-view-learg-img">
+                        <div class="quick-view-tab-content tab-content">
+                            <div class="tab-pane active show fade" id="modal1" role="tabpanel">
+                                <img id="modal-image" src="{% static 'img/quick-view/l1.jpg' %}" alt="">
                             </div>
                         </div>
-                        <div class="qwick-view-right">
-                            <div class="qwick-view-content">
-                                <h3>Dog Calcium Food</h3>
-                                <div class="product-price">
-                                    <span>₽19.00 </span>
-                                </div>
-                                <div class="product-rating">
-                                    <i class="ion-star theme-color"></i>
-                                    <i class="ion-star theme-color"></i>
-                                    <i class="ion-star theme-color"></i>
-                                    <i class="ion-star theme-color"></i>
-                                    <i class="ion-star theme-color"></i>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do amt tempor incididun ut labore et dolore magna aliqua. Ut enim ad mi , quis nostrud veniam exercitation .</p>
-                                <div class="quick-view-select">
-                                    <div class="select-option-part">
-                                        <label>Size*</label>
-                                        <select class="select">
-                                            <option value="">- Please Select -</option>
-                                            <option value="">XS</option>
-                                            <option value="">S</option>
-                                            <option value="">M</option>
-                                            <option value=""> L</option>
-                                            <option value="">XL</option>
-                                            <option value="">XXL</option>
-                                        </select>
-                                    </div>
-                                    <div class="select-option-part">
-                                        <label>Color*</label>
-                                        <select class="select">
-                                            <option value="">- Please Select -</option>
-                                            <option value="">orange</option>
-                                            <option value="">pink</option>
-                                            <option value="">yellow</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="quickview-plus-minus">
-                                    <div class="cart-plus-minus">
-                                        <input type="text" value="2" name="qtybutton" class="cart-plus-minus-box">
-                                    </div>
-                                    <div class="quickview-btn-cart">
-                                        <a class="btn-style" href="#">add to cart</a>
-                                    </div>
-                                    <div class="quickview-btn-wishlist">
-                                        <a class="btn-hover" href="#"><i class="ti-heart"></i></a>
-                                    </div>
-                                </div>
+                    </div>
+                </div>
+                <div class="qwick-view-right">
+                    <div class="qwick-view-content">
+                        <h3 id="modal-title">Dog Calcium Food</h3>
+                        <div class="product-price">
+                            <span class="new" id="modal-sale-price"></span>
+                            <span class="old" id="modal-price"></span>
+                        </div>
+                        <p id="modal-description">Lorem ipsum dolor sit amet, consectetur adip elit, sed do amt tempor incididun ut labore et dolore magna aliqua. Ut enim ad mi , quis nostrud veniam exercitation .</p>
+                        <div class="quickview-plus-minus">
+                            <div class="cart-plus-minus">
+                                <input type="text" value="1" name="qtybutton" class="cart-plus-minus-box">
+                            </div>
+                            <div class="quickview-btn-cart">
+                                <a class="btn-style" href="#">add to cart</a>
+                            </div>
+                            <div class="quickview-btn-wishlist">
+                                <a class="btn-hover" href="#"><i class="ti-heart"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
     <script>
                  /*---------------------
     price slider СОРТИРОВКА ПО ЦЕНЕ
@@ -656,4 +285,70 @@
         filterProducts(sliderrange.slider("values", 0), sliderrange.slider("values", 1)); // Вызов функции фильтрации
     });
             </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var quickViewLinks = document.querySelectorAll('.quick-view');
+    quickViewLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            var title = link.getAttribute('data-title');
+            var image = link.getAttribute('data-image');
+            var salePrice = link.getAttribute('data-sale-price');
+            var price = link.getAttribute('data-price');
+            var description = link.getAttribute('data-description');
+
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-image').src = image;
+            document.getElementById('modal-description').textContent = description;
+
+            if (salePrice && salePrice !== 'None') {
+                document.getElementById('modal-sale-price').textContent = salePrice + '₽';
+                document.getElementById('modal-sale-price').style.display = 'inline';
+                document.getElementById('modal-price').textContent = price + '₽';
+                document.getElementById('modal-price').classList.add('old');
+            } else {
+                document.getElementById('modal-sale-price').style.display = 'none';
+                document.getElementById('modal-price').textContent = price + '₽';
+                document.getElementById('modal-price').classList.remove('old');
+            }
+        });
+    });
+});
+</script>
+ <script>
+        function addUrlParameter(name, value) {
+            let searchParams = new URLSearchParams(window.location.search)
+            if (['genre', 'game_mode', 'platform'].includes(name)) {
+                searchParams.delete('?');
+            }
+            if (searchParams.has(name) && searchParams.get(name) === value) {
+                searchParams.delete(name);
+            } else {
+                searchParams.set(name, value)
+            }
+            window.location.search = searchParams.toString()
+        }
+    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+
+<script>
+    $(".js-range-slider").ionRangeSlider({
+        type: "double",
+        grid: true,
+        min: {{ min_price }},
+        max: {{ max_price }},
+        from: {% get_price request 0 %},
+        to: {% get_price request 1 %},
+        prefix: "₽",
+        onFinish: function (data) {
+            let result = data.from.toString() + ';' + data.to.toString();
+            addUrlParameter('price', result);
+        }
+    });
+
+    function addUrlParameter(name, value) {
+        let searchParams = new URLSearchParams(window.location.search);
+        searchParams.set(name, value);
+        window.location.search = searchParams.toString();
+    }
+</script>
 {% endblock %}

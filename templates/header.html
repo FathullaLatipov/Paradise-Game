@@ -60,9 +60,9 @@
                                         <i class="ti-close s-close"></i>
                                     </button>
                                     <div class="search-content">
-                                        <form action="#" id="searchForm">
-                                            <input type="text" placeholder="Поиск" id="SSearch" autocomplete="off">
-                                            <button>
+                                        <form action="{% url 'shop' %}" id="searchForm">
+                                            <input type="text" placeholder="Поиск" name="q" value="{{ request.GET.q }}" autocomplete="off">
+                                            <button type="submit">
                                                 <i class="icon-magnifier"></i>
                                             </button>
                                         </form>

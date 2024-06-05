@@ -1,542 +1,332 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-        <div class="slider-area">
-            <div class="slider-active owl-dot-style owl-carousel">
-                <div class="single-slider pt-100 pb-100 yellow-bg" >
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-12 col-sm-7">
-                                <div class="slider-content slider-animated-1 pt-114">
-                                    <h3 class="animated">Только у нас</h3>
-                                    <h1 class="animated">Самые горячие <br>Игры и Цены</h1>
-                                    <div class="slider-btn">
-                                        <a class="animated"  href="shop-page.html">Купи сейчас</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-12 col-sm-5">
-                                <div class="slider-single-img slider-animated-1">
-                                    <img class="animated" id="mass"  src="{% static 'img/slider/mass.jpg' %}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="single-slider pt-100 pb-100 yellow-bg">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-7 col-12">
-                                <div class="slider-content slider-animated-1 pt-114">
-                                    <h3 class="animated">Только у нас</h3>
-                                    <h1 class="animated">Самые горячие <br>Игры и Цены</h1>
-                                    <div class="slider-btn">
-                                        <a class="animated" href="product-details.html">Купи сейчас</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-5 col-12">
-                                <div class="slider-single-img slider-animated-1">
-                                    <img class="animated"  id="doom" src="{% static 'img/slider/doom.jpg' %}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="food-category food-category-col pt-100 pb-60" style="background-color: rgb(168, 211, 225);">
+<div class="slider-area">
+    <div class="slider-active owl-dot-style owl-carousel">
+        <div class="single-slider pt-100 pb-100 yellow-bg">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="single-food-category cate-padding-1 text-center mb-30">
-                            <div class="single-food-hover-2">
-                                <img src="{% static 'img/product/call.jpg' %}" alt="">
-                            </div>
-                            <div class="single-food-content">
-                                <h3>Играй с удовольствием</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="single-food-category cate-padding-2 text-center mb-30">
-                            <div class="single-food-hover-2">
-                                <img src="{% static 'img/product/far.jpg' %}" alt="">
-                            </div>
-                            <div class="single-food-content">
-                                <h3>В отличные игры</h3>
+                    <div class="col-lg-6 col-md-6 col-12 col-sm-7">
+                        <div class="slider-content slider-animated-1 pt-114">
+                            <h3 class="animated">Только у нас</h3>
+                            <h1 class="animated">Самые горячие <br>Игры и Цены</h1>
+                            <div class="slider-btn">
+                                <a class="animated" href="shop-page.html">Купи сейчас</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="single-food-category cate-padding-3 text-center mb-30">
-                            <div class="single-food-hover-2">
-                                <img src="{% static 'img/product/hol.jpg' %}" alt="">
-                            </div>
-                            <div class="single-food-content">
-                                <h3>Приключения не ждут</h3>
-                            </div>
+                    <div class="col-lg-6 col-md-6 col-12 col-sm-5">
+                        <div class="slider-single-img slider-animated-1">
+                            <img class="animated" id="mass" src="{% static 'img/slider/mass.jpg' %}" alt="">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="product-area pt-95 pb-70 gray-bg" style="background-color: rgb(158, 201, 215);">
+        <div class="single-slider pt-100 pb-100 yellow-bg">
             <div class="container">
-                <div class="section-title text-center mb-55">
-                    <h2>Популярно Сейчас</h2>
-                </div>
-
                 <div class="row">
-
-
-                    <!--КАРТОЧКА-->
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        <div class="product-wrapper mb-10">
-                            <div class="product-img">
-                                <a href="product-details.html">
-                                    <img src="{% static 'img/product/sk.jpg' %}" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i>
-                                    </a>
-                                    <a title="Add To Cart" href="#" class="add-to-cart" data-id="1" data-name="The Elder Scrolls 5: Skyrim" data-price="200.00" data-image="assets/img/product/sk.jpg">
-                                        <i class="ti-shopping-cart"></i>
-                                    </a>
-                                </div>
-                                <div class="product-action-wishlist">
-                                    <a title="Wishlist" href="#">
-                                        <i class="ti-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h4><a href="product-details.html">The Elder Scrolls 5: Skyrim</a></h4>
-                                <div class="product-price">
-                                    <span class="new">200.00₽ </span>
-                                    <span class="old">500.00₽</span>
-                                </div>
+                    <div class="col-lg-6 col-md-6 col-sm-7 col-12">
+                        <div class="slider-content slider-animated-1 pt-114">
+                            <h3 class="animated">Только у нас</h3>
+                            <h1 class="animated">Самые горячие <br>Игры и Цены</h1>
+                            <div class="slider-btn">
+                                <a class="animated" href="product-details.html">Купи сейчас</a>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6 col-md-6 col-sm-5 col-12">
+                        <div class="slider-single-img slider-animated-1">
+                            <img class="animated" id="doom" src="{% static 'img/slider/doom.jpg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="food-category food-category-col pt-100 pb-60" style="background-color: rgb(168, 211, 225);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="single-food-category cate-padding-1 text-center mb-30">
+                    <div class="single-food-hover-2">
+                        <img src="{% static 'img/product/call.jpg' %}" alt="">
+                    </div>
+                    <div class="single-food-content">
+                        <h3>Играй с удовольствием</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="single-food-category cate-padding-2 text-center mb-30">
+                    <div class="single-food-hover-2">
+                        <img src="{% static 'img/product/far.jpg' %}" alt="">
+                    </div>
+                    <div class="single-food-content">
+                        <h3>В отличные игры</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="single-food-category cate-padding-3 text-center mb-30">
+                    <div class="single-food-hover-2">
+                        <img src="{% static 'img/product/hol.jpg' %}" alt="">
+                    </div>
+                    <div class="single-food-content">
+                        <h3>Приключения не ждут</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product-area pt-95 pb-70 gray-bg" style="background-color: rgb(158, 201, 215);">
+    <div class="container">
+        <div class="section-title text-center mb-55">
+            <h2>Популярно Сейчас</h2>
+        </div>
+
+        <div class="row">
+
+
+            <!--КАРТОЧКА-->
+           {% for game in games %}
+<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+    <div class="product-wrapper mb-10">
+        <div class="product-img">
+            <a href="product-details.html">
+                <img src="{{ game.image.url }}" alt="">
+            </a>
+            <div class="product-action">
+                <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" class="quick-view" data-id="{{ game.id }}" data-title="{{ game.title }}" data-image="{{ game.image.url }}" data-sale-price="{{ game.sale_price }}" data-price="{{ game.price }}" data-description="{{ game.description }}">
+                    <i class="ti-plus"></i>
+                </a>
+                <a title="Add To Cart" href="#" data-id="1" data-name="The Elder Scrolls 5: Skyrim" data-price="200.00" data-image="{% static 'img/product/sk.jpg '%}">
+                    <i class="ti-shopping-cart"></i>
+                </a>
+            </div>
+            <div class="product-action-wishlist">
+                <a title="Wishlist" href="#">
+                    <i class="ti-heart"></i>
+                </a>
+            </div>
+        </div>
+        <div class="product-content">
+            <h4><a href="product-details.html">{{ game.title }}</a></h4>
+            <div class="product-price">
+                {% if game.sale_price %}
+                <span class="new"> {{ game.sale_price }}₽ </span>
+                <span class="old"> {{ game.price }}₽ </span>
+                {% else %}
+                <span class="old" style="text-decoration: none"> {{ game.price }}₽ </span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 
 
 
+        </div>
+    </div>
+</div>
+<div class="deal-area bg-img pt-95 pb-100" style="background-color: rgb(168, 211, 225);">
+    <div class="container">
+        <div class="section-title text-center mb-50">
 
+            <h2>Игра недели</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="deal-img wow fadeInLeft">
+                    <a href="#"><img src="{% static 'img/banner/HellDrivers2.jpg' %}" style="border-radius: 8px;"
+                                     alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="deal-content">
+                    <h3><a href="#"><b>Helldivers 2</b></a></h3>
+                    <div class="deal-pro-price">
+                        <span class="deal-old-price">4500₽</span>
+                        <span> 3500₽</span>
+                    </div>
+                    <p><b>Helldivers 2</b> — это командный шутер от третьего лица, в котором элитным отрядам Адских
+                        Десантников предстоит одержать верх в битвах по всей галактике и избавить мир от инопланетных
+                        угроз. В боях с видом от третьего лица игроки будут использовать разнообразное оружие и
+                        стратагемы уничтожая полчища врагов. Сцены сражений насыщены кровью и частями тел инопланетных
+                        врагов. При огне по своим — как и при неудачном срабатывании взрывчатки — игроки получают урон .
+                    </p>
+                    <div class="timer timer-style">
+                        <div data-countdown="2024/04/25"></div>
+                    </div>
+                    <div class="discount-btn mt-35">
+                        <a class="btn-style" href="#">Купи Сейчас</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="service-area bg-img pt-100 pb-65" style="background-color: rgb(168, 211, 225);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="service-content text-center mb-30 service-color-1">
+                    <img src="{% static 'img/icon-img/shipping.png' %}" alt="">
+                    <h4>Моментальное получение</h4>
+                    <p>Вы мгновенно получите ключ после оплаты </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="service-content text-center mb-30 service-color-2">
+                    <img src="{% static 'img/icon-img/support.png' %}" alt="">
+                    <h4>Поддержка</h4>
+                    <p>Онлайн поддержка, готовая помочь с любым вопросом</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="service-content text-center mb-30 service-color-3">
+                    <img src="{% static 'img/icon-img/money.png' %}" alt="">
+                    <h4>Скидки</h4>
+                    <p>Постоянные скидки, на разнобразные игры</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blog-area pb-70" style="background-color: rgb(168, 211, 225);">
+    <div class="container">
+        <div class="section-title text-center mb-60">
 
+            <h2>Скоро выходят</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-wrapper mb-30 gray-bg" style="border-radius: 8px;">
+                    <div class="blog-img hover-effect" style="border-radius: 8px;">
+                        <a href=""><img alt="" src="{% static 'img/blog/Ghost.jpg' %}"></a>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <ul>
+                                <li>Июль 17, 2024</li>
+                            </ul>
+                        </div>
+                        <h4><a href="">Ghost of Tsushima</a></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" style="border-radius: 8px;">
+                <div class="blog-wrapper mb-30 gray-bg" style="border-radius: 8px;">
+                    <div class="blog-img hover-effect" style="border-radius: 8px;">
+                        <a href=""><img alt="" src="{% static 'img/blog/gothicc.jpg' %}"></a>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <ul>
 
+                                <li>Сентябрь 11, 2024</li>
+                            </ul>
+                        </div>
+                        <h4><a href="">Gothic</a></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" style="border-radius: 8px;">
+                <div class="blog-wrapper mb-30 gray-bg" style="border-radius: 8px;">
+                    <div class="blog-img hover-effect" style="border-radius: 8px;">
+                        <a href=""><img alt="" src="{% static 'img/blog/Hades2.jpg' %}"></a>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <ul>
 
-
-
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        <div class="product-wrapper mb-10">
-                            <div class="product-img">
-                                <a href="product-details.html">
-                                    <img src="{% static 'img/product/SanAndreas.jpg' %}" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i>
-                                    </a>
-                                    <a title="Add To Cart" href="#">
-                                        <i class="ti-shopping-cart"></i>
-                                    </a>
-                                </div>
-                                <div class="product-action-wishlist">
-                                    <a title="Wishlist" href="#">
-                                        <i class="ti-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h4><a href="product-details.html">Grand Theft Auto: San Andreas</a></h4>
-                                <div class="product-price">
-                                    <span class="new">22.00₽ </span>
-                                </div>
+                                <li>Октябрь 24, 2024</li>
+                            </ul>
+                        </div>
+                        <h4><a href="">Hades II</a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span class="ti-close" aria-hidden="true"></span>
+    </button>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="qwick-view-left">
+                    <div class="quick-view-learg-img">
+                        <div class="quick-view-tab-content tab-content">
+                            <div class="tab-pane active show fade" id="modal1" role="tabpanel">
+                                <img id="modal-image" src="{% static 'img/quick-view/l1.jpg' %}" alt="">
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        <div class="product-wrapper mb-10">
-                            <div class="product-img">
-                                <a href="product-details.html">
-                                    <img src="assets/img/product/fc3.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i>
-                                    </a>
-                                    <a title="Add To Cart" href="#">
-                                        <i class="ti-shopping-cart"></i>
-                                    </a>
-                                </div>
-                                <div class="product-action-wishlist">
-                                    <a title="Wishlist" href="#">
-                                        <i class="ti-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h4><a href="product-details.html">Far Cry 3</a></h4>
-                                <div class="product-price">
-                                    <span class="new">50.00₽ </span>
-                                    <span class="old">70.00₽</span>
-                                </div>
-                            </div>
+                </div>
+                <div class="qwick-view-right">
+                    <div class="qwick-view-content">
+                        <h3 id="modal-title">Dog Calcium Food</h3>
+                        <div class="product-price">
+                            <span class="new" id="modal-sale-price"></span>
+                            <span class="old" id="modal-price"></span>
                         </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        <div class="product-wrapper mb-10">
-                            <div class="product-img">
-                                <a href="product-details.html">
-                                    <img src="assets/img/product/GrandAuto4.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i>
-                                    </a>
-                                    <a title="Add To Cart" href="#">
-                                        <i class="ti-shopping-cart"></i>
-                                    </a>
-                                </div>
-                                <div class="product-action-wishlist">
-                                    <a title="Wishlist" href="#">
-                                        <i class="ti-heart"></i>
-                                    </a>
-                                </div>
+                        <p id="modal-description">Lorem ipsum dolor sit amet, consectetur adip elit, sed do amt tempor incididun ut labore et dolore magna aliqua. Ut enim ad mi , quis nostrud veniam exercitation .</p>
+                        <div class="quickview-plus-minus">
+                            <div class="cart-plus-minus">
+                                <input type="text" value="1" name="qtybutton" class="cart-plus-minus-box">
                             </div>
-                            <div class="product-content">
-                                <h4><a href="product-details.html">Grand Theft Auto 4</a></h4>
-                                <div class="product-price">
-                                    <span class="new">60.00₽ </span>
-                                </div>
+                            <div class="quickview-btn-cart">
+                                <a class="btn-style" href="#">add to cart</a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        <div class="product-wrapper mb-10">
-                            <div class="product-img">
-                                <a href="product-details.html">
-                                    <img src="assets/img/product/AC2.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i>
-                                    </a>
-                                    <a title="Add To Cart" href="#">
-                                        <i class="ti-shopping-cart"></i>
-                                    </a>
-                                </div>
-                                <div class="product-action-wishlist">
-                                    <a title="Wishlist" href="#">
-                                        <i class="ti-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h4><a href="product-details.html">Assassin's Creed 2</a></h4>
-                                <div class="product-price">
-                                    <span class="new">70.00₽ </span>
-                                    <span class="old">90.00₽</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        <div class="product-wrapper mb-10">
-                            <div class="product-img">
-                                <a href="product-details.html">
-                                    <img src="assets/img/product/MassEffect2.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i>
-                                    </a>
-                                    <a title="Add To Cart" href="#">
-                                        <i class="ti-shopping-cart"></i>
-                                    </a>
-                                </div>
-                                <div class="product-action-wishlist">
-                                    <a title="Wishlist" href="#">
-                                        <i class="ti-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h4><a href="product-details.html">Mass Effect 2</a></h4>
-                                <div class="product-price">
-                                    <span class="new">80.00₽ </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        <div class="product-wrapper mb-10">
-                            <div class="product-img">
-                                <a href="product-details.html">
-                                    <img src="assets/img/product/Mafia2.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i>
-                                    </a>
-                                    <a title="Add To Cart" href="#">
-                                        <i class="ti-shopping-cart"></i>
-                                    </a>
-                                </div>
-                                <div class="product-action-wishlist">
-                                    <a title="Wishlist" href="#">
-                                        <i class="ti-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h4><a href="product-details.html">Mafia 2</a></h4>
-                                <div class="product-price">
-                                    <span class="new">10.00₽ </span>
-                                    <span class="old">30.00₽</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        <div class="product-wrapper mb-10">
-                            <div class="product-img">
-                                <a href="product-details.html">
-                                    <img src="assets/img/product/CallOfDutyMW2.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i>
-                                    </a>
-                                    <a title="Add To Cart" href="#">
-                                        <i class="ti-shopping-cart"></i>
-                                    </a>
-                                </div>
-                                <div class="product-action-wishlist">
-                                    <a title="Wishlist" href="#">
-                                        <i class="ti-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h4><a href="product-details.html">Call of Duty: Modern Warfare 2</a></h4>
-                                <div class="product-price">
-                                    <span class="new">22.00₽ </span>
-                                </div>
+                            <div class="quickview-btn-wishlist">
+                                <a class="btn-hover" href="#"><i class="ti-heart"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="deal-area bg-img pt-95 pb-100" style="background-color: rgb(168, 211, 225);" >
-            <div class="container" >
-                <div class="section-title text-center mb-50">
+    </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var quickViewLinks = document.querySelectorAll('.quick-view');
+    quickViewLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            var title = link.getAttribute('data-title');
+            var image = link.getAttribute('data-image');
+            var salePrice = link.getAttribute('data-sale-price');
+            var price = link.getAttribute('data-price');
+            var description = link.getAttribute('data-description');
 
-                    <h2>Игра недели</h2>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="deal-img wow fadeInLeft">
-                            <a href="#"><img src="{% static 'img/banner/HellDrivers2.jpg' %}" style="border-radius: 8px;" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="deal-content">
-                            <h3><a href="#"><b>Helldivers 2</b></a></h3>
-                            <div class="deal-pro-price">
-                                <span class="deal-old-price">4500₽</span>
-                                <span> 3500₽</span>
-                            </div>
-                            <p> <b>Helldivers 2</b> — это командный шутер от третьего лица, в котором элитным отрядам Адских Десантников предстоит одержать верх в битвах по всей галактике и избавить мир от инопланетных угроз. В боях с видом от третьего лица игроки будут использовать разнообразное оружие  и стратагемы  уничтожая полчища врагов. Сцены сражений насыщены кровью и частями тел инопланетных врагов. При огне по своим — как и при неудачном срабатывании взрывчатки — игроки получают урон . </p>
-                            <div class="timer timer-style">
-                                <div data-countdown="2024/04/25"></div>
-                            </div>
-                            <div class="discount-btn mt-35">
-                                <a class="btn-style" href="#">Купи Сейчас</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-image').src = image;
+            document.getElementById('modal-description').textContent = description;
 
-		<div class="service-area bg-img pt-100 pb-65" style="background-color: rgb(168, 211, 225);" >
-		    <div class="container">
-		        <div class="row">
-		            <div class="col-lg-4 col-md-4">
-		                <div class="service-content text-center mb-30 service-color-1">
-		                    <img src="{% static 'img/icon-img/shipping.png' %}" alt="">
-		                    <h4>Моментальное получение</h4>
-		                    <p>Вы мгновенно получите ключ после оплаты </p>
-		                </div>
-		            </div>
-		            <div class="col-lg-4 col-md-4">
-		                <div class="service-content text-center mb-30 service-color-2">
-		                    <img src="{% static 'img/icon-img/support.png' %}" alt="">
-		                    <h4>Поддержка</h4>
-		                    <p>Онлайн поддержка, готовая помочь с любым вопросом</p>
-		                </div>
-		            </div>
-		            <div class="col-lg-4 col-md-4">
-		                <div class="service-content text-center mb-30 service-color-3">
-		                    <img src="{% static 'img/icon-img/money.png' %}" alt="">
-		                    <h4>Скидки</h4>
-		                    <p>Постоянные скидки, на разнобразные игры</p>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-		<div class="blog-area pb-70" style="background-color: rgb(168, 211, 225);">
-		    <div class="container">
-		        <div class="section-title text-center mb-60">
+            if (salePrice && salePrice !== 'None') {
+                document.getElementById('modal-sale-price').textContent = salePrice + '₽';
+                document.getElementById('modal-sale-price').style.display = 'inline';
+                document.getElementById('modal-price').textContent = price + '₽';
+                document.getElementById('modal-price').classList.add('old');
+            } else {
+                document.getElementById('modal-sale-price').style.display = 'none';
+                document.getElementById('modal-price').textContent = price + '₽';
+                document.getElementById('modal-price').classList.remove('old');
+            }
+        });
+    });
+});
 
-                    <h2>Скоро выходят</h2>
-                </div>
-                <div class="row" >
-                    <div class="col-lg-4 col-md-6" >
-                        <div class="blog-wrapper mb-30 gray-bg"  style="border-radius: 8px;">
-                            <div class="blog-img hover-effect" style="border-radius: 8px;">
-                                <a href=""><img alt=""  src="{% static 'img/blog/Ghost.jpg' %}"></a>
-                            </div>
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <ul>
-                                        <li>Июль 17, 2024</li>
-                                    </ul>
-                                </div>
-                                <h4><a href="">Ghost of Tsushima</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6" style="border-radius: 8px;">
-                        <div class="blog-wrapper mb-30 gray-bg" style="border-radius: 8px;">
-                            <div class="blog-img hover-effect" style="border-radius: 8px;">
-                                <a href=""><img alt="" src="{% static 'img/blog/gothicc.jpg' %}"></a>
-                            </div>
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <ul>
 
-                                        <li>Сентябрь 11, 2024</li>
-                                    </ul>
-                                </div>
-                                <h4><a href="">Gothic</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6" style="border-radius: 8px;">
-                        <div class="blog-wrapper mb-30 gray-bg" style="border-radius: 8px;">
-                            <div class="blog-img hover-effect" style="border-radius: 8px;">
-                                <a href=""><img alt="" src="{% static 'img/blog/Hades2.jpg' %}"></a>
-                            </div>
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <ul>
-
-                                        <li>Октябрь 24, 2024</li>
-                                    </ul>
-                                </div>
-                                <h4><a href="">Hades II</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-		    </div>
-        </div>
-		<!-- modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span class="ti-close" aria-hidden="true"></span>
-            </button>
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="qwick-view-left">
-                            <div class="quick-view-learg-img">
-                                <div class="quick-view-tab-content tab-content">
-                                    <div class="tab-pane active show fade" id="modal1" role="tabpanel">
-                                        <img src="assets/img/quick-view/l1.jpg" alt="">
-                                    </div>
-                                    <div class="tab-pane fade" id="modal2" role="tabpanel">
-                                        <img src="assets/img/quick-view/l2.jpg" alt="">
-                                    </div>
-                                    <div class="tab-pane fade" id="modal3" role="tabpanel">
-                                        <img src="assets/img/quick-view/l3.jpg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="quick-view-list nav" role="tablist">
-                                <a class="active" href="#modal1" data-toggle="tab">
-                                    <img src="assets/img/quick-view/s1.jpg" alt="">
-                                </a>
-                                <a href="#modal2" data-toggle="tab" role="tab">
-                                    <img src="assets/img/quick-view/s2.jpg" alt="">
-                                </a>
-                                <a href="#modal3" data-toggle="tab" role="tab">
-                                    <img src="assets/img/quick-view/s3.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="qwick-view-right">
-                            <div class="qwick-view-content">
-                                <h3>Dog Calcium Food</h3>
-                                <div class="product-price">
-                                    <span class="new">20.00₽ </span>
-                                    <span class="old">50.00₽</span>
-                                </div>
-                                <div class="product-rating">
-                                    <i class="icon-star theme-color"></i>
-                                    <i class="icon-star theme-color"></i>
-                                    <i class="icon-star theme-color"></i>
-                                    <i class="icon-star"></i>
-                                    <i class="icon-star"></i>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do amt tempor incididun ut labore et dolore magna aliqua. Ut enim ad mi , quis nostrud veniam exercitation .</p>
-                                <div class="quick-view-select">
-                                    <div class="select-option-part">
-                                        <label>Size*</label>
-                                        <select class="select">
-                                            <option value="">- Please Select -</option>
-                                            <option value="">XS</option>
-                                            <option value="">S</option>
-                                            <option value="">M</option>
-                                            <option value=""> L</option>
-                                            <option value="">XL</option>
-                                            <option value="">XXL</option>
-                                        </select>
-                                    </div>
-                                    <div class="select-option-part">
-                                        <label>Color*</label>
-                                        <select class="select">
-                                            <option value="">- Please Select -</option>
-                                            <option value="">orange</option>
-                                            <option value="">pink</option>
-                                            <option value="">yellow</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="quickview-plus-minus">
-                                    <div class="cart-plus-minus">
-                                        <input type="text" value="2" name="qtybutton" class="cart-plus-minus-box">
-                                    </div>
-                                    <div class="quickview-btn-cart">
-                                        <a class="btn-style" href="#">add to cart</a>
-                                    </div>
-                                    <div class="quickview-btn-wishlist">
-                                        <a class="btn-hover" href="#"><i class="ti-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+</script>
 <!--		<script src="./smartbasket/js/smartbasket.min.js"></script>-->
 
 <!--        <link rel="stylesheet" href="smartbasket/css/smartbasket.min.css">-->
