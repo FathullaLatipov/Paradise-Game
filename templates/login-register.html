@@ -1,56 +1,55 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-        <div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url({% static 'img/banner/banner-2.jpg' %});">
-            <div class="container">
-                
-            </div>
-        </div>
-        <div class="login-register-area pt-95 pb-100" style="background-color: rgb(168, 211, 225);">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7 col-md-12 ml-auto mr-auto">
-                        <div class="login-register-wrapper">
-                            <div class="login-register-tab-list nav">
-                                <a class="active" data-toggle="tab" href="#lg1">
-                                    <h4> Авторизация </h4>
-                                </a>
-                                <a data-toggle="tab" href="#lg2">
-                                    <h4> Регистрация </h4>
-                                </a>
-                            </div>
-                            <div class="tab-content">
-                                <div id="lg1" class="tab-pane active">
-                                    <div class="login-form-container" >
-                                        <div class="login-register-form">
-                                            <form action="assets/php/login.php" method="post">
-                                                <input type="text" name="login" placeholder="Логин" style="border: 1px solid black;">
-                                                <input type="password" name="pass" placeholder="Пароль" style="border: 1px solid black;">
-                                                <div class="button-box">
-                                                    <div class="login-toggle-btn">
-                                                        <input type="checkbox">
-                                                        <label>Запомнить меня</label>
-                                                        <a href="#">Забыли пароль?</a>
-                                                    </div>
-                                                    <button type="submit"><span>Авторизироваться</span></button>
-                                                </div>
-                                            </form>
+<div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url({% static 'img/banner/banner-2.jpg' %});">
+    <div class="container"></div>
+</div>
+<div class="login-register-area pt-95 pb-100" style="background-color: rgb(168, 211, 225);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <a class="active" data-toggle="tab" href="#lg1">
+                            <h4> Авторизация </h4>
+                        </a>
+                        <a data-toggle="tab" href="#lg2">
+                            <h4> Регистрация </h4>
+                        </a>
+                    </div>
+                    <div class="tab-content">
+                        <div id="lg1" class="tab-pane active">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {{ login_form.username }}
+                                        {{ login_form.password }}
+                                        <div class="button-box">
+                                            <div class="login-toggle-btn">
+                                                <input type="checkbox">
+                                                <label>Запомнить меня</label>
+                                                <a href="#">Забыли пароль?</a>
+                                            </div>
+                                            <button type="submit" name="login"><span>Авторизироваться</span></button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div id="lg2" class="tab-pane">
-                                    <div class="login-form-container">
-                                        <div class="login-register-form">
-                                            <form action="assets/php/register.php" method="post">
-                                                <input type="text" name="login" placeholder="Логин" style="border: 1px solid black;">
-                                                <input type="password" name="pass" placeholder="Пароль" style="border: 1px solid black;">
-                                                <input name="email" placeholder="Email" type="Email" style="border: 1px solid black;">
-                                                <div class="button-box">
-                                                    <button type="submit"><span>Зарегестрироваться</span></button>
-                                                </div>
-                                            </form>
+                            </div>
+                        </div>
+                        <div id="lg2" class="tab-pane">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {{ register_form.username }}
+                                        {{ register_form.email }}
+                                        {{ register_form.password1 }}
+                                        {{ register_form.password2 }}
+                                        <div class="button-box">
+                                            <button type="submit" name="register"><span>Зарегистрироваться</span></button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -58,4 +57,6 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 {% endblock %}
