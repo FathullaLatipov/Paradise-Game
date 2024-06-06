@@ -13,9 +13,6 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12" >
 
-
-
-
                         <!--КОРЗИНА-->
                         <form action="#">
                             <div class="table-content table-responsive">
@@ -26,12 +23,31 @@
                                             <th>Название игры</th>
                                             <th>Цена за игру</th>
                                             <th>Кол-во</th>
-                                            <th>Общая</th>
+<!--                                            <th>Общая</th>-->
                                             <th>Удалить</th>
                                         </tr>
                                     </thead>
                                     <tbody id="cart-items">
-                                        <!-- Товары будут добавлены сюда скриптом -->
+                                    {% if cart_items %}
+                                         {% for item in cart_items %}
+                                              <tr>
+                                                <td class="product-thumbnail"><a href="#"><img src="{{ item.game.image.url }}"  width="150px" alt="{{ item.game.title }}"></a></td>
+                                                <td class="product-name"><a href="#">{{ item.game.title }}</a></td>
+                                                <td class="product-price-cart"><span class="amount">{{ item.game.price }}₽</span></td>
+                                                <td class="product-quantity">
+                                                    <div class="cart-plus-minus" style="display: none !important;">
+<!--                                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value="{{ item.quantity }}" data-id="{{ item.game.id }}" onchange="updateQuantity(this)">-->
+                                                    </div>
+                                                       <input class="cart-plus-minus-box" type="text" name="qtybutton" value="{{ item.quantity }}" data-id="{{ item.game.id }}" onchange="updateQuantity(this)">
+
+                                                </td>
+<!--                                                <td class="product-subtotal">{{ total_price }} ₽</td>-->
+                                                <td class="product-remove"><a href="#" onclick="removeFromCart('{{item.game.id}}')"><i class="ti-trash"></i></a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                     <p>Ваша корзина пуста.</p>
+                                    {% endif %}
                                     </tbody>
                                 </table>
                             </div>
@@ -39,8 +55,8 @@
                                 <div class="col-lg-12">
                                     <div class="cart-shiping-update-wrapper" style="border: 1px solid black;">
                                         <div class="cart-shiping-update">
-                                            <a href="shop-page.html" class="cartButtons">Продолжить покупки</a>
-                                            <button type="button" onclick="updateCart()">Обновить корзину</button>
+                                            <a href="{% url 'shop' %}" class="cartButtons">Продолжить покупки</a>
+                                            <button type="button" id="reloadPageButton">Обновить корзину</button>
                                         </div>
                                         <div class="cart-clear">
                                             <a href="#" onclick="clearCart()">Очистить корзину</a>
@@ -59,8 +75,7 @@
                         <div class="row">                 
                             <div class="col-lg-4 col-md-12">
                                 <div class="grand-totall" style="border: 1px solid black; ">
-                                    <span>Промежуточный итог:   155.00₽</span>
-                                    <h5>Общая сумма:   353.00₽</h5>
+                                    <h5>Общая сумма:   {{ total_price }}₽</h5>
                                     <a href="#">Приступить к оплате</a>
                                    
                                 </div>
@@ -73,25 +88,10 @@
 
 
 
-
-
-<div class="container">
-    <h2>Корзина</h2>
-    {% if cart_items %}
-        <ul>
-            {% for item in cart_items %}
-                <li>
-                    <img src="{{ item.game.image.url }}" alt="{{ item.game.title }}" width="50">
-                    <span>{{ item.game.title }}</span>
-                    <span>{{ item.quantity }}</span>
-                    <span>{{ item.game.price }}₽</span>
-                </li>
-            {% endfor %}
-        </ul>
-        <p>Общая стоимость: {{ total_price }}₽</p>
-    {% else %}
-        <p>Ваша корзина пуста.</p>
-    {% endif %}
-</div>
+<script>
+    document.getElementById('reloadPageButton').addEventListener('click', function() {
+        window.location.reload();
+    });
+</script>
 
 {% endblock %}
