@@ -1,4 +1,7 @@
 from django.db import models
+import random
+import string
+from django.contrib.auth.models import User
 
 
 class GenreModel(models.Model):
@@ -61,3 +64,37 @@ class GameModel(models.Model):
         verbose_name_plural = 'Игры'
 
 
+class CartModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart')
+    game = models.ForeignKey(GameModel, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.game.title} (x{self.quantity})"
+
+    class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзины'
+
+
+class OrderModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
+    game = models.ForeignKey(GameModel, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    unique_key = models.CharField(max_length=20, unique=True, blank=True, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.unique_key:
+            self.unique_key = self.generate_unique_key()
+        super().save(*args, **kwargs)
+
+    def generate_unique_key(self):
+        return '-'.join(''.join(random.choices(string.ascii_uppercase + string.digits, k=5)) for _ in range(3))
+
+    def __str__(self):
+        return f"Order {self.unique_key} by {self.user.username}"
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'

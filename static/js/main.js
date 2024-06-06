@@ -131,145 +131,145 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 //КОРЗИНКА
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Document Loaded');
-    
-    if (document.querySelectorAll('.add-to-cart').length > 0) {
-        updateCartCount();
-        const addToCartButtons = document.querySelectorAll('.add-to-cart');
-        addToCartButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                const id = this.getAttribute('data-id');
-                const name = this.getAttribute('data-name');
-                const price = this.getAttribute('data-price');
-                const image = this.getAttribute('data-image');
-                addToCart(id, name, price, image);
-                console.log('Добавление товара в корзину:', { id, name, price, image });
-                window.location.href = 'cart.html';
-            });
-        });
-    }
-
-    if (document.getElementById('cart-items')) {
-        loadCart();
-    }
-});
-
-function isLocalStorageSupported() {
-    try {
-        const testKey = 'test';
-        localStorage.setItem(testKey, 'testValue');
-        localStorage.removeItem(testKey);
-        return true;
-    } catch (error) {
-        console.error('localStorage is not supported:', error);
-        return false;
-    }
-}
-
-function addToCart(id, name, price, image) {
-    if (!isLocalStorageSupported()) return;
-
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    console.log('Текущая корзина:', cart);
-
-    const existingItem = cart.find(item => item.id === id);
-
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({ id, name, price, image, quantity: 1 });
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-    console.log('Корзина после добавления товара:', JSON.parse(localStorage.getItem('cart')));
-    updateCartCount();
-}
-
-function loadCart() {
-    if (!isLocalStorageSupported()) return;
-
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    console.log('Загрузка корзины:', cart);
-    const cartItemsContainer = document.getElementById('cart-items');
-
-    if (!cartItemsContainer) {
-        console.error('Element with id "cart-items" not found');
-        return;
-    }
-
-    cartItemsContainer.innerHTML = '';
-
-    if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<tr><td colspan="6">Корзина пуста</td></tr>';
-        return;
-    }
-
-    cart.forEach(item => {
-        const total = (item.price * item.quantity).toFixed(2);
-        const cartItem = `
-            <tr>
-                <td class="product-thumbnail"><a href="#"><img src="${item.image}" alt=""></a></td>
-                <td class="product-name"><a href="#">${item.name}</a></td>
-                <td class="product-price-cart"><span class="amount">${item.price}₽</span></td>
-                <td class="product-quantity">
-                    <div class="cart-plus-minus">
-                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value="${item.quantity}" data-id="${item.id}" onchange="updateQuantity(this)">
-                    </div>
-                </td>
-                <td class="product-subtotal">${total}₽</td>
-                <td class="product-remove"><a href="#" onclick="removeFromCart('${item.id}')"><i class="ti-trash"></i></a></td>
-            </tr>
-        `;
-        cartItemsContainer.insertAdjacentHTML('beforeend', cartItem);
-    });
-}
-
-function updateQuantity(element) {
-    if (!isLocalStorageSupported()) return;
-
-    const id = element.getAttribute('data-id');
-    const newQuantity = parseInt(element.value);
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const item = cart.find(item => item.id === id);
-
-    if (item) {
-        item.quantity = newQuantity;
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-    loadCart();
-}
-
-function removeFromCart(id) {
-    if (!isLocalStorageSupported()) return;
-
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart = cart.filter(item => item.id !== id);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    loadCart();
-}
-
-function clearCart() {
-    if (!isLocalStorageSupported()) return;
-
-    localStorage.removeItem('cart');
-    loadCart();
-}
-
-function updateCartCount() {
-    if (!isLocalStorageSupported()) return;
-
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const count = cart.reduce((total, item) => total + item.quantity, 0);
-    const cartCountElement = document.querySelector('.icon-cart .count-style');
-    if (cartCountElement) {
-        cartCountElement.textContent = count;
-    } else {
-        console.error('Element with class "icon-cart .count-style" not found');
-    }
-}
+// document.addEventListener('DOMContentLoaded', function() {
+//     console.log('Document Loaded');
+//
+//     if (document.querySelectorAll('.add-to-cart').length > 0) {
+//         updateCartCount();
+//         const addToCartButtons = document.querySelectorAll('.add-to-cart');
+//         addToCartButtons.forEach(button => {
+//             button.addEventListener('click', function(event) {
+//                 event.preventDefault();
+//                 const id = this.getAttribute('data-id');
+//                 const name = this.getAttribute('data-name');
+//                 const price = this.getAttribute('data-price');
+//                 const image = this.getAttribute('data-image');
+//                 addToCart(id, name, price, image);
+//                 console.log('Добавление товара в корзину:', { id, name, price, image });
+//                 window.location.href = 'cart.html';
+//             });
+//         });
+//     }
+//
+//     if (document.getElementById('cart-items')) {
+//         loadCart();
+//     }
+// });
+//
+// function isLocalStorageSupported() {
+//     try {
+//         const testKey = 'test';
+//         localStorage.setItem(testKey, 'testValue');
+//         localStorage.removeItem(testKey);
+//         return true;
+//     } catch (error) {
+//         console.error('localStorage is not supported:', error);
+//         return false;
+//     }
+// }
+//
+// function addToCart(id, name, price, image) {
+//     if (!isLocalStorageSupported()) return;
+//
+//     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+//     console.log('Текущая корзина:', cart);
+//
+//     const existingItem = cart.find(item => item.id === id);
+//
+//     if (existingItem) {
+//         existingItem.quantity += 1;
+//     } else {
+//         cart.push({ id, name, price, image, quantity: 1 });
+//     }
+//
+//     localStorage.setItem('cart', JSON.stringify(cart));
+//     console.log('Корзина после добавления товара:', JSON.parse(localStorage.getItem('cart')));
+//     updateCartCount();
+// }
+//
+// function loadCart() {
+//     if (!isLocalStorageSupported()) return;
+//
+//     const cart = JSON.parse(localStorage.getItem('cart')) || [];
+//     console.log('Загрузка корзины:', cart);
+//     const cartItemsContainer = document.getElementById('cart-items');
+//
+//     if (!cartItemsContainer) {
+//         console.error('Element with id "cart-items" not found');
+//         return;
+//     }
+//
+//     cartItemsContainer.innerHTML = '';
+//
+//     if (cart.length === 0) {
+//         cartItemsContainer.innerHTML = '<tr><td colspan="6">Корзина пуста</td></tr>';
+//         return;
+//     }
+//
+//     cart.forEach(item => {
+//         const total = (item.price * item.quantity).toFixed(2);
+//         const cartItem = `
+//             <tr>
+//                 <td class="product-thumbnail"><a href="#"><img src="${item.image}" alt=""></a></td>
+//                 <td class="product-name"><a href="#">${item.name}</a></td>
+//                 <td class="product-price-cart"><span class="amount">${item.price}₽</span></td>
+//                 <td class="product-quantity">
+//                     <div class="cart-plus-minus">
+//                         <input class="cart-plus-minus-box" type="text" name="qtybutton" value="${item.quantity}" data-id="${item.id}" onchange="updateQuantity(this)">
+//                     </div>
+//                 </td>
+//                 <td class="product-subtotal">${total}₽</td>
+//                 <td class="product-remove"><a href="#" onclick="removeFromCart('${item.id}')"><i class="ti-trash"></i></a></td>
+//             </tr>
+//         `;
+//         cartItemsContainer.insertAdjacentHTML('beforeend', cartItem);
+//     });
+// }
+//
+// function updateQuantity(element) {
+//     if (!isLocalStorageSupported()) return;
+//
+//     const id = element.getAttribute('data-id');
+//     const newQuantity = parseInt(element.value);
+//     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+//     const item = cart.find(item => item.id === id);
+//
+//     if (item) {
+//         item.quantity = newQuantity;
+//     }
+//
+//     localStorage.setItem('cart', JSON.stringify(cart));
+//     loadCart();
+// }
+//
+// function removeFromCart(id) {
+//     if (!isLocalStorageSupported()) return;
+//
+//     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+//     cart = cart.filter(item => item.id !== id);
+//     localStorage.setItem('cart', JSON.stringify(cart));
+//     loadCart();
+// }
+//
+// function clearCart() {
+//     if (!isLocalStorageSupported()) return;
+//
+//     localStorage.removeItem('cart');
+//     loadCart();
+// }
+//
+// function updateCartCount() {
+//     if (!isLocalStorageSupported()) return;
+//
+//     const cart = JSON.parse(localStorage.getItem('cart')) || [];
+//     const count = cart.reduce((total, item) => total + item.quantity, 0);
+//     const cartCountElement = document.querySelector('.icon-cart .count-style');
+//     if (cartCountElement) {
+//         cartCountElement.textContent = count;
+//     } else {
+//         console.error('Element with class "icon-cart .count-style" not found');
+//     }
+// }
 
 
 

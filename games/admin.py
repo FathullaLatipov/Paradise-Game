@@ -1,6 +1,16 @@
 from django.contrib import admin
 
-from .models import GenreModel, GameModeModels, PlatformModels, GameModel
+from .models import GenreModel, GameModeModels, PlatformModels, GameModel, CartModel, OrderModel
+
+
+@admin.register(CartModel)
+class CartModelAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(OrderModel)
+class OrderModelAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(GenreModel)

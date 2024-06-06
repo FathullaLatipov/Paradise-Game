@@ -35,7 +35,7 @@
 
 
                                                  <li>
-                                                    <a href="{% url 'cart' %}">Корзина</a>
+                                                    <a href="{% url 'view_cart' %}">Корзина</a>
                                                 </li>
                                                 <li>
                                                   {% if user.is_authenticated %}
@@ -86,7 +86,7 @@
 
                                     <!--ИКОНКА КОРЗИНЫ-->
                                     <button class="icon-cart">
-                                        <a href="{% url 'cart' %}"><i class="icon-handbag"></i></a>
+                                        <a href="{% url 'view_cart' %}"><i class="icon-handbag"></i></a>
                                         <span class="count-style">0</span>
                                     </button>
 

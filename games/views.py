@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, ListView
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 from django.db.models import Max, Min
+import json
 
-from .models import GameModel, GenreModel, GameModeModels, PlatformModels
+from .models import GameModel, GenreModel, GameModeModels, PlatformModels, CartModel, OrderModel
 
 
 class HomeTemplate(ListView):
@@ -75,3 +78,56 @@ class CartTemplate(TemplateView):
 
 class WishlistTemplate(TemplateView):
     template_name = 'wishlist.html'
+
+
+@login_required
+def add_to_cart(request):
+    print("add_to_cart view called")
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            game_id = data.get('game_id')
+            quantity = int(data.get('quantity', 1))
+            print(f"game_id: {game_id}, quantity: {quantity}")
+            if not game_id:
+                raise ValueError("game_id is missing")
+            game = get_object_or_404(GameModel, id=game_id)
+            cart_item, created = CartModel.objects.get_or_create(user=request.user, game=game)
+            if not created:
+                cart_item.quantity = quantity  # Update the quantity if item already exists in cart
+            else:
+                cart_item.quantity = quantity  # Set the quantity if it's a new item in cart
+            cart_item.save()
+            return JsonResponse({'message': 'Added to cart'})
+        except Exception as e:
+            print(f"Error: {e}")
+            return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+@login_required
+def view_cart(request):
+    cart_items = CartModel.objects.filter(user=request.user)
+    total_price = sum(item.game.price * item.quantity for item in cart_items)
+    return render(request, 'cart.html', {'cart_items': cart_items, 'total_price': total_price})
+
+
+@login_required
+def place_order(request):
+    if request.method == 'POST':
+        cart_items = CartModel.objects.filter(user=request.user)
+        if cart_items.exists():
+            for item in cart_items:
+                OrderModel.objects.create(
+                    user=request.user,
+                    game=item.game,
+                    quantity=item.quantity
+                )
+                item.delete()
+            return JsonResponse({'message': 'Order placed successfully'})
+        return JsonResponse({'message': 'No items in cart'}, status=400)
+
+
+@login_required
+def view_orders(request):
+    orders = OrderModel.objects.filter(user=request.user)
+    return render(request, 'orders.html', {'orders': orders})

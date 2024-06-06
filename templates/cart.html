@@ -70,4 +70,28 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
+<div class="container">
+    <h2>Корзина</h2>
+    {% if cart_items %}
+        <ul>
+            {% for item in cart_items %}
+                <li>
+                    <img src="{{ item.game.image.url }}" alt="{{ item.game.title }}" width="50">
+                    <span>{{ item.game.title }}</span>
+                    <span>{{ item.quantity }}</span>
+                    <span>{{ item.game.price }}₽</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <p>Общая стоимость: {{ total_price }}₽</p>
+    {% else %}
+        <p>Ваша корзина пуста.</p>
+    {% endif %}
+</div>
+
 {% endblock %}
