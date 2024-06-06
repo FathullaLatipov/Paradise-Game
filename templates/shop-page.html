@@ -46,6 +46,7 @@
                         <div class="grid-list-product-wrapper">
                             <div class="product-view product-grid">
                                 <div class="row">
+                                    {% csrf_token %}
                                     {% for game in games %}
                                         <div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">
                                             <div class="product-wrapper mb-10">
@@ -57,14 +58,9 @@
                                                         <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" class="quick-view" data-id="{{ game.id }}" data-title="{{ game.title }}" data-image="{{ game.image.url }}" data-sale-price="{{ game.sale_price }}" data-price="{{ game.price }}" data-description="{{ game.description }}">
                                                             <i class="ti-plus"></i>
                                                         </a>
-                                                        <a title="Add To Cart" href="#">
-                                                            <i class="ti-shopping-cart"></i>
-                                                        </a>
-                                                    </div>
-                                                    <div class="product-action-wishlist">
-                                                        <a title="Wishlist" href="#">
-                                                            <i class="ti-heart"></i>
-                                                        </a>
+                                                          <a title="Add To Cart" href="#" class="add-to-cart" data-id="{{ game.id }}" data-name="{{ game.title }}" data-price="{{ game.price }}" data-image="{{ game.image.url }}">
+                                                                <i class="ti-shopping-cart"></i>
+                                                          </a>
                                                     </div>
                                                 </div>
                                                 <div class="product-content" data-price="19" >
@@ -197,7 +193,7 @@ platform-->
                 </div>
             </div>
         </div>
-<!-- modal -->
+<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span class="ti-close" aria-hidden="true"></span>
@@ -224,15 +220,13 @@ platform-->
                         <p id="modal-description">Lorem ipsum dolor sit amet, consectetur adip elit, sed do amt tempor incididun ut labore et dolore magna aliqua. Ut enim ad mi , quis nostrud veniam exercitation .</p>
                         <div class="quickview-plus-minus">
                             <div class="cart-plus-minus">
-                                <input type="text" value="1" name="qtybutton" class="cart-plus-minus-box">
+                                <input type="text" value="1" name="qtybutton" class="cart-plus-minus-box" id="modal-quantity">
                             </div>
                             <div class="quickview-btn-cart">
-                                <a class="btn-style" href="#">add to cart</a>
-                            </div>
-                            <div class="quickview-btn-wishlist">
-                                <a class="btn-hover" href="#"><i class="ti-heart"></i></a>
+                                <a class="btn-style add-to-cart" href="#" id="modal-add-to-cart-btn">add to cart</a>
                             </div>
                         </div>
+                        <input type="hidden" id="modal-game-id">
                     </div>
                 </div>
             </div>
@@ -285,9 +279,15 @@ platform-->
         filterProducts(sliderrange.slider("values", 0), sliderrange.slider("values", 1)); // Вызов функции фильтрации
     });
             </script>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    window.CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
     var quickViewLinks = document.querySelectorAll('.quick-view');
+    var addToCartLinks = document.querySelectorAll('.add-to-cart');
+
     quickViewLinks.forEach(function (link) {
         link.addEventListener('click', function (event) {
             var title = link.getAttribute('data-title');
@@ -295,10 +295,12 @@ platform-->
             var salePrice = link.getAttribute('data-sale-price');
             var price = link.getAttribute('data-price');
             var description = link.getAttribute('data-description');
+            var gameId = link.getAttribute('data-id');
 
             document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-image').src = image;
             document.getElementById('modal-description').textContent = description;
+            document.getElementById('modal-game-id').value = gameId;
 
             if (salePrice && salePrice !== 'None') {
                 document.getElementById('modal-sale-price').textContent = salePrice + '₽';
@@ -312,7 +314,81 @@ platform-->
             }
         });
     });
+
+    addToCartLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            var gameId = link.getAttribute('data-id');
+            var quantity = 1; // Default quantity
+
+            console.log(`Game ID: ${gameId}`); // Added for debugging
+
+            console.log(`Sending POST request to /add-to-cart/ with game_id: ${gameId} and quantity: ${quantity}`);
+
+            fetch('/add-to-cart/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': window.CSRF_TOKEN
+                },
+                body: JSON.stringify({
+                    game_id: gameId,
+                    quantity: quantity
+                })
+            })
+            .then(response => {
+                console.log(`Response status: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                if (data.message === 'Added to cart') {
+                    alert('Игра добавлена в корзину');
+                }
+            })
+            .catch(error => {
+                console.log(`Error: ${error}`);
+            });
+        });
+    });
+
+    // Handler for the add to cart button inside the modal
+    document.getElementById('modal-add-to-cart-btn').addEventListener('click', function (event) {
+        event.preventDefault();
+        var gameId = document.getElementById('modal-game-id').value;
+        var quantity = document.getElementById('modal-quantity').value;
+
+        console.log(`Game ID (modal): ${gameId}`); // Added for debugging
+
+        console.log(`Sending POST request to /add-to-cart/ with game_id: ${gameId} and quantity: ${quantity}`);
+
+        fetch('/add-to-cart/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': window.CSRF_TOKEN
+            },
+            body: JSON.stringify({
+                game_id: gameId,
+                quantity: quantity
+            })
+        })
+        .then(response => {
+            console.log(`Response status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            if (data.message === 'Added to cart') {
+                alert('Игра добавлена в корзину');
+            }
+        })
+        .catch(error => {
+            console.log(`Error: ${error}`);
+        });
+    });
 });
+
 </script>
  <script>
         function addUrlParameter(name, value) {

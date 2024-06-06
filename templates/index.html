@@ -107,11 +107,6 @@
                     <i class="ti-shopping-cart"></i>
                 </a>
             </div>
-            <div class="product-action-wishlist">
-                <a title="Wishlist" href="#">
-                    <i class="ti-heart"></i>
-                </a>
-            </div>
         </div>
         <div class="product-content">
             <h4><a href="product-details.html">{{ game.title }}</a></h4>
@@ -126,6 +121,8 @@
         </div>
     </div>
 </div>
+{% empty %}
+<h3>Не нашли то что искали((</h3>
 {% endfor %}
 
 
@@ -286,9 +283,6 @@
                             </div>
                             <div class="quickview-btn-cart">
                                 <a class="btn-style add-to-cart" href="#" id="modal-add-to-cart-btn">add to cart</a>
-                            </div>
-                            <div class="quickview-btn-wishlist">
-                                <a class="btn-hover" href="#"><i class="ti-heart"></i></a>
                             </div>
                         </div>
                         <input type="hidden" id="modal-game-id">

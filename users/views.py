@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
+from games.models import CartModel
 from .forms import UserRegisterForm, UserLoginForm, ProfileUpdateForm, CustomPasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import logout
@@ -33,10 +35,12 @@ def login_register_view(request):
     else:
         login_form = UserLoginForm()
         register_form = UserRegisterForm()
+        cart_items = CartModel.objects.filter(user=request.user)
 
     return render(request, 'login-register.html', {
         'login_form': login_form,
-        'register_form': register_form
+        'register_form': register_form,
+        'cart_items': cart_items
     })
 
 
@@ -59,10 +63,12 @@ def profile_view(request):
     else:
         profile_form = ProfileUpdateForm(instance=request.user)
         password_form = CustomPasswordChangeForm(user=request.user)
+        cart_items = CartModel.objects.filter(user=request.user)
 
     context = {
         'profile_form': profile_form,
-        'password_form': password_form
+        'password_form': password_form,
+        'cart_items': cart_items
     }
     return render(request, 'my-account.html', context)
 

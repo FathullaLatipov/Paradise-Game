@@ -13,6 +13,12 @@ class HomeTemplate(ListView):
     queryset = GameModel.objects.all()
     context_object_name = 'games'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart_items'] = CartModel.objects.filter(user=self.request.user)
+        return context
+
+
 
 class ShopTemplate(ListView):
     template_name = 'shop-page.html'
@@ -51,6 +57,7 @@ class ShopTemplate(ListView):
         context['genres'] = GenreModel.objects.all()
         context['game_models'] = GameModeModels.objects.all()
         context['platforms'] = PlatformModels.objects.all()
+        context['cart_items'] = CartModel.objects.filter(user=self.request.user)
 
         context['min_price'], context['max_price'] = GameModel.objects.aggregate(
             Min('price'),
@@ -63,21 +70,21 @@ class ShopTemplate(ListView):
 class AboutTemplate(TemplateView):
     template_name = 'about-us.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart_items'] = CartModel.objects.filter(user=self.request.user)
+        return context
+
+
 
 class ContactTemplate(TemplateView):
     template_name = 'contact.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart_items'] = CartModel.objects.filter(user=self.request.user)
+        return context
 
-class LoginTemplate(TemplateView):
-    template_name = 'login-register.html'
-
-
-class CartTemplate(TemplateView):
-    template_name = 'cart.html'
-
-
-class WishlistTemplate(TemplateView):
-    template_name = 'wishlist.html'
 
 
 @login_required
