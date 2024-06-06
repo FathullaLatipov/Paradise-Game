@@ -133,8 +133,7 @@ def place_order(request):
             return JsonResponse({'message': 'Order placed successfully'})
         return JsonResponse({'message': 'No items in cart'}, status=400)
 
-
-@login_required
-def view_orders(request):
-    orders = OrderModel.objects.filter(user=request.user)
-    return render(request, 'orders.html', {'orders': orders})
+# @login_required
+# def view_orders(request):
+#     orders = OrderModel.objects.filter(user=request.user)
+#     return render(request, 'orders.html', {'orders': orders})
