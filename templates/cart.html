@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+    .btn-delete {
+            background-color: #7e4c4f;
+            border-radius: 5px;
+            color: #fff;
+            display: inline-block;
+            font-weight: 600;
+            line-height: 1;
+            padding: 16px 27px;
+            text-transform: uppercase;
+    }
+
+    .btn-delete:hover {
+        background-color: #D5526E;
+        color: #fff;
+    }
+</style>
         <div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url({% static 'img/banner/banner-2.jpg' %});">
             <div class="container">
                 
@@ -54,7 +71,10 @@
                                     <button type="button" id="reloadPageButton">Обновить корзину</button>
                                 </div>
                                 <div class="cart-clear">
-                                    <a href="#" onclick="clearCart()">Очистить корзину</a>
+                                 <form id="clear-cart-form" action="{% url 'clear_cart' %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn-delete" onclick="clearCart(event)">Очистить корзину</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -145,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Удалить строку товара из DOM
                     link.closest('tr').remove();
                     alert('Товар удален из корзины');
-                    window.location.reload();
+                     window.location.reload();
                 } else {
                     console.log(data.error);
                 }
@@ -156,6 +176,29 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+</script>
+<script>
+    function clearCart(event) {
+        event.preventDefault();
+        fetch('/clear-cart/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => {
+            if (response.ok) {
+                location.reload(); // Reload the page
+            } else {
+                console.error('Failed to clear cart');
+            }
+        })
+        .catch(error => {
+            console.error('Error clearing cart:', error);
+        });
+    }
 </script>
 
 

@@ -3,7 +3,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from games.views import HomeTemplate, ShopTemplate, AboutTemplate, ContactTemplate, add_to_cart, view_cart, place_order, remove_from_cart
+from games.views import HomeTemplate, ShopTemplate, AboutTemplate, ContactTemplate, add_to_cart,\
+    view_cart, place_order, remove_from_cart, clear_cart
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,6 +20,7 @@ urlpatterns = [
     path('cart/', view_cart, name='view_cart'),
     path('place-order/', place_order, name='place_order'),
     path('remove-from-cart/', remove_from_cart, name='remove_from_cart'),
+    path('clear-cart/', clear_cart, name='clear_cart'),
     # path('orders/', view_orders, name='view_orders')
 ]
 

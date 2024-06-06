@@ -161,6 +161,11 @@ def remove_from_cart(request):
         return JsonResponse({'error': 'Item not found in cart'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
+@login_required
+def clear_cart(request):
+    CartModel.objects.filter(user=request.user).delete()
+    return redirect('view_cart')
 # @login_required
 # def view_orders(request):
 #     orders = OrderModel.objects.filter(user=request.user)
