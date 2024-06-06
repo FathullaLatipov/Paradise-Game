@@ -87,7 +87,11 @@
                                     <!--ИКОНКА КОРЗИНЫ-->
                                     <button class="icon-cart">
                                         <a href="{% url 'view_cart' %}"><i class="icon-handbag"></i></a>
-                                        <span class="count-style">{{ cart_items.count }}</span>
+                                        {% if user.is_authenticated %}
+                                            <span class="count-style">{{ cart_items.count }}</span>
+                                        {% else %}
+                                            <span class="count-style">{{ cart_items }}</span>
+                                        {% endif %}
                                     </button>
 
 

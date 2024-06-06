@@ -8,6 +8,7 @@ from games.models import CartModel, OrderModel
 from .forms import UserRegisterForm, UserLoginForm, ProfileUpdateForm, CustomPasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import logout
+from django.contrib.auth.models import AnonymousUser
 
 
 def login_register_view(request):
@@ -35,7 +36,10 @@ def login_register_view(request):
     else:
         login_form = UserLoginForm()
         register_form = UserRegisterForm()
-        cart_items = CartModel.objects.filter(user=request.user)
+        if isinstance(request.user, AnonymousUser):
+            cart_items = 0
+        else:
+            cart_items = CartModel.objects.filter(user=request.user)
 
     return render(request, 'login-register.html', {
         'login_form': login_form,
@@ -63,7 +67,10 @@ def profile_view(request):
     else:
         profile_form = ProfileUpdateForm(instance=request.user)
         password_form = CustomPasswordChangeForm(user=request.user)
-        cart_items = CartModel.objects.filter(user=request.user)
+        if isinstance(request.user, AnonymousUser):
+            cart_items = 0
+        else:
+            cart_items = CartModel.objects.filter(user=request.user)
         orders = OrderModel.objects.filter(user=request.user)
 
     context = {

@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Max, Min
 import json
+from django.views.decorators.http import require_POST
+from django.contrib.auth.models import AnonymousUser
 
 from .models import GameModel, GenreModel, GameModeModels, PlatformModels, CartModel, OrderModel
 
@@ -15,9 +17,11 @@ class HomeTemplate(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['cart_items'] = CartModel.objects.filter(user=self.request.user)
+        if isinstance(self.request.user, AnonymousUser):
+            context['cart_items'] = 0
+        else:
+            context['cart_items'] = CartModel.objects.filter(user=self.request.user)
         return context
-
 
 
 class ShopTemplate(ListView):
@@ -57,7 +61,10 @@ class ShopTemplate(ListView):
         context['genres'] = GenreModel.objects.all()
         context['game_models'] = GameModeModels.objects.all()
         context['platforms'] = PlatformModels.objects.all()
-        context['cart_items'] = CartModel.objects.filter(user=self.request.user)
+        if isinstance(self.request.user, AnonymousUser):
+            context['cart_items'] = 0
+        else:
+            context['cart_items'] = CartModel.objects.filter(user=self.request.user)
 
         context['min_price'], context['max_price'] = GameModel.objects.aggregate(
             Min('price'),
@@ -72,9 +79,11 @@ class AboutTemplate(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['cart_items'] = CartModel.objects.filter(user=self.request.user)
+        if isinstance(self.request.user, AnonymousUser):
+            context['cart_items'] = 0
+        else:
+            context['cart_items'] = CartModel.objects.filter(user=self.request.user)
         return context
-
 
 
 class ContactTemplate(TemplateView):
@@ -82,9 +91,11 @@ class ContactTemplate(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['cart_items'] = CartModel.objects.filter(user=self.request.user)
+        if isinstance(self.request.user, AnonymousUser):
+            context['cart_items'] = 0
+        else:
+            context['cart_items'] = CartModel.objects.filter(user=self.request.user)
         return context
-
 
 
 @login_required
@@ -111,6 +122,7 @@ def add_to_cart(request):
             return JsonResponse({'error': str(e)}, status=500)
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
+
 @login_required
 def view_cart(request):
     cart_items = CartModel.objects.filter(user=request.user)
@@ -133,6 +145,22 @@ def place_order(request):
             return JsonResponse({'message': 'Order placed successfully'})
         return JsonResponse({'message': 'No items in cart'}, status=400)
 
+
+@login_required
+@require_POST
+def remove_from_cart(request):
+    try:
+        data = json.loads(request.body)
+        game_id = data.get('game_id')
+        if not game_id:
+            return JsonResponse({'error': 'game_id is missing'}, status=400)
+        cart_item = CartModel.objects.filter(user=request.user, game_id=game_id).first()
+        if cart_item:
+            cart_item.delete()
+            return JsonResponse({'message': 'Item removed from cart'})
+        return JsonResponse({'error': 'Item not found in cart'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 # @login_required
 # def view_orders(request):
 #     orders = OrderModel.objects.filter(user=request.user)

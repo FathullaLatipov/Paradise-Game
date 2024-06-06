@@ -344,6 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(data);
                 if (data.message === 'Added to cart') {
                     alert('Игра добавлена в корзину');
+                    window.location.reload();
                 }
             })
             .catch(error => {
@@ -381,6 +382,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(data);
             if (data.message === 'Added to cart') {
                 alert('Игра добавлена в корзину');
+                window.location.reload();
             }
         })
         .catch(error => {
