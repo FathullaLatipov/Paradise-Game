@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9vjl_dc%zj)zzro&367c*cyjh+xb-n!0hp_**7y@mjys5eut$l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'paradise_game.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'DB_NAME',
-        'USER': 'DB_USER',
-        'PASSWORD': 'DB_PASS',
-        'HOST': 'DB_HOST',
-        'PORT': 'DB_PORT',
+        'NAME': 'paradise_db',
+        'USER': 'paradise_user',
+        'PASSWORD': 'paradise_pass',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the project name and root directory
-PROJECT_NAME=Gipermart-backend
+PROJECT_NAME=Paradise-Game
 PROJECT_ROOT=/var/www/$PROJECT_NAME
 
 # Define the Python version and virtual environment path
@@ -40,7 +40,7 @@ After=network.target
 User=$USER
 Group=www-data
 WorkingDirectory=$PROJECT_ROOT
-ExecStart=$VENV_PATH/bin/gunicorn --access-logfile - --workers 3 --bind unix:$PROJECT_ROOT/$PROJECT_NAME.sock config.wsgi:application
+ExecStart=$VENV_PATH/bin/gunicorn --access-logfile - --workers 3 --bind unix:$PROJECT_ROOT/$PROJECT_NAME.sock paradise_game.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
@@ -57,7 +57,7 @@ python3 manage.py migrate
 sudo tee $NGINX_CONF > /dev/null <<EOF
 server {
     listen 80;
-    server_name 167.71.236.11;
+    server_name 185.255.134.124;
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
