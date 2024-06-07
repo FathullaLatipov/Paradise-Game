@@ -152,7 +152,9 @@
                                                     {% if order.game.title == 'Mortal Shell' %}
                                                         <p><strong><b>Ключ:</b></strong> I7WM5-NI34K-YMFRF</p>
                                                     {% else %}
-                                                        <p><strong><b>Ключ:</b></strong> {{ order.unique_key }}</p>
+                                                         {% for key in order.unique_keys %}
+                                                                <li>Ключ: {{ key }}</li>
+                                                            {% endfor %}
                                                     {% endif %}
                                                     <p><strong>Дата заказа:</strong> {{ order.created_at|date:"d M Y H:i" }}</p>
                                                 </div>

@@ -8,7 +8,7 @@
                                 <div class="footer-info-wrapper">
                                     <div class="footer-logo">
                                         <a href="#">
-                                            <img src="{% static 'img/logo/logo-2.png' %}" alt="">
+                                            <img src="{% static 'img/logo/new_logo_1.png' %}" width="100px" alt="">
                                         </a>
                                     </div>
 
@@ -21,7 +21,8 @@
                                 <h4 class="footer-title">Полезные ссылки</h4>
                                 <div class="footer-content">
                                     <ul>
-                                        <li><a href="#">О нас</a></li>
+                                        <li><a href="{% url 'about' %}">О нас</a></li>
+                                        <li><a href="{% url 'shop' %}">Игры</a></li>
 
                                     </ul>
                                 </div>
@@ -32,7 +33,8 @@
                                 <h4 class="footer-title">Помощь</h4>
                                 <div class="footer-content">
                                     <ul>
-                                        <li><a href="#">Связаться с нами </a></li>
+                                        <li><a href="{% url 'contact' %}">Связаться с нами </a></li>
+                                        <li><a href="{% url 'login-register' %}">Авторизация </a></li>
 
                                     </ul>
                                 </div>

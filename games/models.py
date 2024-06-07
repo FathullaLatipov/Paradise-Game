@@ -81,19 +81,19 @@ class OrderModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
     game = models.ForeignKey(GameModel, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
-    unique_key = models.CharField(max_length=20, unique=True, blank=True)
+    unique_keys = models.JSONField(default=list)  # Use JSONField to store list of unique keys
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        if not self.unique_key:
-            self.unique_key = self.generate_unique_key()
+        if not self.unique_keys:
+            self.unique_keys = [self.generate_unique_key() for _ in range(self.quantity)]
         super().save(*args, **kwargs)
 
     def generate_unique_key(self):
         return '-'.join(''.join(random.choices(string.ascii_uppercase + string.digits, k=5)) for _ in range(3))
 
     def __str__(self):
-        return f"Order {self.unique_key} by {self.user.username}"
+        return f"Order {self.unique_keys} by {self.user.username}"
 
     class Meta:
         verbose_name = 'Заказ'
