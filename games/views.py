@@ -142,8 +142,8 @@ def place_order(request):
                     quantity=item.quantity
                 )
                 item.delete()
-            return JsonResponse({'message': 'Order placed successfully'})
-        return JsonResponse({'message': 'No items in cart'}, status=400)
+            return JsonResponse({'message': 'Заказ успешно размещен'})
+        return JsonResponse({'message': 'Нет товара!'}, status=400)
 
 
 @login_required
