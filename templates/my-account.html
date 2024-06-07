@@ -25,7 +25,7 @@
     }
 
 </style>
-<div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url({% static 'img/banner/banner-2.jpg' %});">
+<div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url({% static 'img/banner/1.jpeg' %});">
     <div class="container"></div>
 </div>
 
@@ -149,7 +149,11 @@
                                                     <p><strong>Название игры:</strong> {{ order.game.title }}</p>
                                                     <p><strong>Цена за игру:</strong> {{ order.game.price }}₽</p>
                                                     <p><strong>Количество:</strong> {{ order.quantity }}</p>
-                                                    <p><strong><b>Ключ:</b></strong> {{ order.unique_key }}</p>
+                                                    {% if order.game.title == 'Mortal Shell' %}
+                                                        <p><strong><b>Ключ:</b></strong> I7WM5-NI34K-YMFRF</p>
+                                                    {% else %}
+                                                        <p><strong><b>Ключ:</b></strong> {{ order.unique_key }}</p>
+                                                    {% endif %}
                                                     <p><strong>Дата заказа:</strong> {{ order.created_at|date:"d M Y H:i" }}</p>
                                                 </div>
                                             </div>
