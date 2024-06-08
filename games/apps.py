@@ -3,4 +3,5 @@ from django.apps import AppConfig
 
 class GamesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Игры'
+    name = 'games'
+    vervbose_name = 'Игры'
