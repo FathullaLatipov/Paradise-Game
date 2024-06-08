@@ -411,8 +411,8 @@ document.addEventListener('DOMContentLoaded', function () {
 $(".js-range-slider").ionRangeSlider({
     type: "double",
     grid: true,
-    min: {{ min_price|floatformat:2|default_if_none:"0.00" }},
-    max: {{ max_price|floatformat:2|default_if_none:"0.00" }},
+    min: {{ min_price|cut:',' }},
+    max: {{ max_price|cut:',' }},
     from: {% get_price request 0 %} || null,
     to: {% get_price request 1 %} || null,
     prefix: "₽",
