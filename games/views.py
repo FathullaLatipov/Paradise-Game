@@ -42,13 +42,13 @@ class ShopTemplate(ListView):
             qs = qs.filter(title__icontains=q)
 
         if genre:
-            qs = qs.filter(genre_id=genre)
+            qs = qs.filter(genre__id=genre)
 
         if game_mode:
-            qs = qs.filter(game_mode_id=game_mode)
+            qs = qs.filter(game_mode__id=game_mode)
 
         if platform:
-            qs = qs.filter(platform_id=platform)
+            qs = qs.filter(platform__id=platform)
 
         if price:
             min_price, max_price = map(float, price.split(';'))

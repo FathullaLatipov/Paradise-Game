@@ -408,19 +408,19 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
 
 <script>
-    $(".js-range-slider").ionRangeSlider({
-        type: "double",
-        grid: true,
-        min: {{ min_price }},
-        max: {{ max_price }},
-        from: {% get_price request 0 %},
-        to: {% get_price request 1 %},
-        prefix: "₽",
-        onFinish: function (data) {
-            let result = data.from.toString() + ';' + data.to.toString();
-            addUrlParameter('price', result);
-        }
-    });
+   $(".js-range-slider").ionRangeSlider({
+    type: "double",
+    grid: true,
+    min: {{ min_price|floatformat:2 }},
+    max: {{ max_price|floatformat:2 }},
+    from: {% get_price request 0 %} || null,
+    to: {% get_price request 1 %} || null,
+    prefix: "₽",
+    onFinish: function (data) {
+        let result = data.from.toString() + ';' + data.to.toString();
+        addUrlParameter('price', result);
+    }
+});
 
     function addUrlParameter(name, value) {
         let searchParams = new URLSearchParams(window.location.search);

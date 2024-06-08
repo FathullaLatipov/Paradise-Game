@@ -1,6 +1,41 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+     .timer-style span {
+            border: 2px solid #ebebeb;
+            border-radius: 3px;
+            color: #242424;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 400;
+            margin: 0 18px 0 0;
+            padding: 7px 14px 6px;
+            text-align: center;
+        }
+        .timer-style span:last-child {
+            margin: 0 0px 0 0;
+        }
+        .timer-style span p {
+            color: #404040;
+            font-size: 13px;
+            font-weight: 400;
+            margin: 9px 0 0;
+            position: relative;
+        }
+        .timer-style span p::before {
+            background-color: #aaa;
+            border-radius: 100%;
+            content: "";
+            height: 1px;
+            left: 0;
+            position: absolute;
+            top: -5px;
+            transition: all 0.4s ease 0s;
+            width: 100%;
+        }
+</style>
+
 <div class="slider-area">
     <div class="slider-active owl-dot-style owl-carousel">
         <div class="single-slider pt-100 pb-100 yellow-bg">
@@ -157,7 +192,8 @@
                         врагов. При огне по своим — как и при неудачном срабатывании взрывчатки — игроки получают урон .
                     </p>
                     <div class="timer timer-style">
-                        <div data-countdown="2024/06/30"></div>
+<!--                        <div data-countdown="2024/06/30"></div>-->
+                        <div id="countdown"></div>
                     </div>
                     <div class="discount-btn mt-35">
                         <a class="btn-style" href="#">Купи Сейчас</a>
@@ -296,6 +332,53 @@
     window.CSRF_TOKEN = "{{ csrf_token }}";
 </script>
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    function updateCountdown() {
+        const countdownElement = document.getElementById('countdown');
+        const targetDate = new Date('2024-06-30T00:00:00');
+        const now = new Date();
+        const timeDifference = targetDate - now;
+
+        if (timeDifference <= 0) {
+            countdownElement.innerHTML = "Время истекло";
+            return;
+        }
+
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        const daysText = days === 1 ? 'день' : (days < 5 ? 'дня' : 'дней');
+        const hoursText = hours === 1 ? 'час' : (hours < 5 ? 'часа' : 'часов');
+        const minutesText = minutes === 1 ? 'минута' : (minutes < 5 ? 'минуты' : 'минут');
+        const secondsText = seconds === 1 ? 'секунда' : (seconds < 5 ? 'секунды' : 'секунд');
+
+        countdownElement.innerHTML = `
+            <span>
+                ${days}
+                <p>${daysText}</p>
+            </span>
+            <span>
+                ${hours}
+                <p>${hoursText}</p>
+            </span>
+            <span>
+                ${minutes}
+                <p>${minutesText}</p>
+            </span>
+            <span>
+                ${seconds}
+                <p>${secondsText}</p>
+            </span>
+        `;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+});
+</script>
+<script>
 document.addEventListener('DOMContentLoaded', function () {
     var quickViewLinks = document.querySelectorAll('.quick-view');
     var addToCartLinks = document.querySelectorAll('.add-to-cart');
@@ -404,66 +487,5 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
-<!--		<script src="./smartbasket/js/smartbasket.min.js"></script>-->
-
-<!--        <link rel="stylesheet" href="smartbasket/css/smartbasket.min.css">-->
-
-<!--        <div class="smart-basket__wrapper"></div>-->
-
-<!--        <script src="./smartbasket/js/smartbasket.min.js"></script>-->
-
-<!--	<script>-->
-<!--		$(function () {-->
-<!--			$('.smart-basket__wrapper').smbasket({-->
-<!--				productElement: 'клас обвертки карточки товара',-->
-<!--				buttonAddToBasket: 'клас кнопки купить',-->
-<!--				productPrice: 'product__price-number',-->
-<!--				productSize: 'product__size-element',-->
-
-<!--				productQuantityWrapper: 'product__quantity',-->
-<!--				smartBasketMinArea: 'класс корзины',-->
-<!--				countryCode: '+7',-->
-<!--				smartBasketCurrency: '₽',-->
-<!--				smartBasketMinIconPath: './smartbasket/img/shopping-basket-wight.svg',-->
-
-<!--				agreement: {-->
-<!--					isRequired: true,-->
-<!--					isChecked: true,-->
-<!--					isLink: 'https://artstranger.ru/privacy.html',-->
-<!--				},-->
-<!--				nameIsRequired: false,-->
-<!--			});-->
-<!--		});-->
-<!--	</script>-->
-<!--
-		<link rel="stylesheet" href="smartbasket/css/smartbasket.min.css">
-
-<div class="smart-basket__wrapper"></div>
-
-<script src="./smartbasket/js/smartbasket.min.js"></script>
-
-	<script>
-		$(function () {
-			$('.smart-basket__wrapper').smbasket({
-				productElement: 'клас обвертки карточки товара',
-				buttonAddToBasket: 'клас кнопки купить',
-				productPrice: 'product__price-number',
-				productSize: 'product__size-element',
-
-				productQuantityWrapper: 'product__quantity',
-				smartBasketMinArea: 'класс корзины',
-				countryCode: '+7',
-				smartBasketCurrency: '₽',
-				smartBasketMinIconPath: './smartbasket/img/shopping-basket-wight.svg',
-
-				agreement: {
-					isRequired: true,
-					isChecked: true,
-					isLink: 'https://artstranger.ru/privacy.html',
-				},
-				nameIsRequired: false,
-			});
-		});
-	</script> -->
 
 {% endblock %}

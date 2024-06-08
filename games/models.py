@@ -50,9 +50,9 @@ class GameModel(models.Model):
     description = models.TextField(verbose_name='Описания')
     count = models.IntegerField(verbose_name='Кол-во')
     image = models.FileField(upload_to='game_images', verbose_name='Изображения')
-    genre = models.ForeignKey(GenreModel, on_delete=models.CASCADE)
-    game_mode = models.ForeignKey(GameModeModels, on_delete=models.CASCADE)
-    platform = models.ForeignKey(PlatformModels, on_delete=models.CASCADE)
+    genre = models.ManyToManyField(GenreModel)
+    game_mode = models.ManyToManyField(GameModeModels)
+    platform = models.ManyToManyField(PlatformModels)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

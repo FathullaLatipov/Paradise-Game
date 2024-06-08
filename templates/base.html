@@ -1,6 +1,6 @@
 {% load static %}
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html class="no-js" lang="ru">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -22,8 +22,7 @@
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-<!--        <link rel="stylesheet" href="assets/smartbasket/css/smartbasket.min.css">-->
+        <script src="https://cdn.jsdelivr.net/npm/jquery-countdown@2.2.0/dist/jquery.countdown.min.js"></script>
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
     </head>
     <body>
@@ -37,8 +36,6 @@
 
 
     	<!-- all js here -->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="{% static 'js/vendor/jquery-1.12.0.min.js' %}"></script>
         <script src="{% static 'js/popper.js' %}"></script>
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
         <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
@@ -48,5 +45,38 @@
         <script src="{% static 'js/owl.carousel.min.js' %}"></script>
         <script src="{% static 'js/plugins.js' %}"></script>
         <script src="{% static 'js/main.js' %}" defer></script>
+    <script>
+        $(document).ready(function() {
+            console.log('Document is ready');
+
+            // Проверка, загружена ли библиотека
+            if (typeof $.countdown !== 'undefined') {
+                // Настройка локализации
+                $.countdown.regional['ru'] = {
+                    labels: ['Лет', 'Месяцев', 'Недель', 'Дней', 'Часов', 'Минут', 'Секунд'],
+                    labels1: ['Год', 'Месяц', 'Неделя', 'День', 'Час', 'Минута', 'Секунда'],
+                    compactLabels: ['л', 'м', 'н', 'д'],
+                    whichLabels: null,
+                    digits: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+                    timeSeparator: ':',
+                    isRTL: false
+                };
+                $.countdown.setDefaults($.countdown.regional['ru']);
+                console.log('Localization set to Russian');
+
+                // Инициализация таймера
+                $('[data-countdown]').each(function() {
+                    console.log('Initializing countdown for element:', this);
+                    var $this = $(this), finalDate = $(this).data('countdown');
+                    console.log('Final date:', finalDate);
+                    $this.countdown(finalDate, function(event) {
+                        $this.html(event.strftime('%D дней %H:%M:%S'));
+                    });
+                });
+            } else {
+                console.error('jquery.countdown library is not loaded');
+            }
+        });
+    </script>
     </body>
 </html>

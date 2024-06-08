@@ -33,7 +33,11 @@
                                                     <a href="{% url 'shop' %}">Католог игр</a>
                                                 </li>
                                                  <li>
-                                                    <a href="{% url 'view_cart' %}">Корзина</a>
+                                                      {% if user.is_authenticated %}
+                                                            <a href="{% url 'view_cart' %}">Корзина</a>
+                                                      {% else %}
+                                                            <a href="{% url 'login-register' %}">Корзина</a>
+                                                      {% endif %}
                                                 </li>
                                                 <li>
                                                   {% if user.is_authenticated %}
@@ -81,7 +85,11 @@
 
                                     <!--ИКОНКА КОРЗИНЫ-->
                                     <button class="icon-cart">
-                                        <a href="{% url 'view_cart' %}"><i class="icon-handbag"></i></a>
+                                         {% if user.is_authenticated %}
+                                            <a href="{% url 'view_cart' %}"><i class="icon-handbag"></i></a>
+                                         {% else %}
+                                            <a href="{% url 'login-register' %}"><i class="icon-handbag"></i></a>
+                                        {% endif %}
                                         {% if user.is_authenticated %}
                                             <span class="count-style">{{ cart_items.count }}</span>
                                         {% else %}
