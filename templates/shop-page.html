@@ -408,11 +408,11 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
 
 <script>
-  $(".js-range-slider").ionRangeSlider({
+$(".js-range-slider").ionRangeSlider({
     type: "double",
     grid: true,
-    min: {{ min_price|floatformat:2|default_if_none:"0.00"|replace:",","." }},
-    max: {{ max_price|floatformat:2|default_if_none:"0.00"|replace:",","." }},
+    min: {{ min_price|floatformat:2|default_if_none:"0.00" }},
+    max: {{ max_price|floatformat:2|default_if_none:"0.00" }},
     from: {% get_price request 0 %} || null,
     to: {% get_price request 1 %} || null,
     prefix: "₽",
