@@ -22,14 +22,19 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form method="post">
-                                        {% csrf_token %}
+                                         {% csrf_token %}
+
+                                                    {% for error in field.errors %}
+                                                        <div class="error">{{ error }}</div>
+                                                    {% endfor %}
+
                                         {{ login_form.username }}
                                         {{ login_form.password }}
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
                                                 <input type="checkbox">
                                                 <label>Запомнить меня</label>
-                                                <a href="#">Забыли пароль?</a>
+<!--                                                <a href="#">Забыли пароль?</a>-->
                                             </div>
                                             <button type="submit" name="login"><span>Авторизироваться</span></button>
                                         </div>
@@ -42,6 +47,11 @@
                                 <div class="login-register-form">
                                     <form method="post">
                                         {% csrf_token %}
+
+                                                    {% for error in field.errors %}
+                                                        <div class="error">{{ error }}</div>
+                                                    {% endfor %}
+
                                         {{ register_form.username }}
                                         {{ register_form.email }}
                                         {{ register_form.password1 }}
