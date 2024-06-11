@@ -46,7 +46,7 @@
                             <h3 class="animated">Только у нас</h3>
                             <h1 class="animated">Самые горячие <br>Игры и Цены</h1>
                             <div class="slider-btn">
-                                <a class="animated" href="shop-page.html">Купи сейчас</a>
+                                <a class="animated" href="{% url 'shop' %}">Купи сейчас</a>
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                             <h3 class="animated">Только у нас</h3>
                             <h1 class="animated">Самые горячие <br>Игры и Цены</h1>
                             <div class="slider-btn">
-                                <a class="animated" href="product-details.html">Купи сейчас</a>
+                                <a class="animated" href="{% url 'shop' %}">Купи сейчас</a>
                             </div>
                         </div>
                     </div>
@@ -169,7 +169,7 @@
     <div class="container">
         <div class="section-title text-center mb-50">
 
-            <h2>Игра недели</h2>
+            <h2>Игра месяца</h2>
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6">
@@ -196,7 +196,7 @@
                         <div id="countdown"></div>
                     </div>
                     <div class="discount-btn mt-35">
-                        <a class="btn-style" href="#">Купи Сейчас</a>
+                        <a class="btn-style" href="{% url 'shop' %}">Купи Сейчас</a>
                     </div>
                 </div>
             </div>
