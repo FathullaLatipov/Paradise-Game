@@ -131,7 +131,7 @@
 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
     <div class="product-wrapper mb-10">
         <div class="product-img">
-            <a href="product-details.html">
+            <a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" class="quick-view" data-id="{{ game.id }}" data-title="{{ game.title }}" data-image="{{ game.image.url }}" data-sale-price="{{ game.sale_price }}" data-price="{{ game.price }}" data-description="{{ game.description }}">
                 <img src="{{ game.image.url }}" alt="">
             </a>
             <div class="product-action">
